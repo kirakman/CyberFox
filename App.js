@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground, Image, Button } from 'react-native';
-import * as Font from 'expo-font';
+import React from 'react';
+import { StyleSheet, View, ImageBackground } from 'react-native';
+import Home from './screens/Home';
 
 export default function App() {
-
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    async function loadFont() {
-      await Font.loadAsync({
-        'modern-rebel': require('./assets/fonts/MBFModernRebel.ttf'),
-      });
-      setFontLoaded(true);
-    }
-    loadFont();
-  }, []);
-
-  if (!fontLoaded) {
-    return null; // Renderizar algo enquanto a fonte está sendo carregada
-  }
 
   return (
     <ImageBackground 
@@ -28,16 +11,7 @@ export default function App() {
     >
 
       <View style={styles.logoContainer}>
-        <Image 
-          source={require('./assets/7j2QCS-QTOeQwWbbzVId3w-removebg-preview.png')} 
-          style={styles.logoImage}
-        />
-        <Text style={styles.primaryText}>CYBER</Text>
-        <Text style={styles.secondaryText}>FOX</Text>
-      </View>
-
-      <View style={styles.primaryButton}>
-        <Button>Teste</Button>
+       <Home/>
       </View>
 
     </ImageBackground>
