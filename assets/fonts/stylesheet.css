@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'MBF Modern Rebel';
+    src: url('MBFModernRebel.eot');
+    src: local('MBF Modern Rebel'), local('MBFModernRebel'),
+        url('MBFModernRebel.eot?#iefix') format('embedded-opentype'),
+        url('MBFModernRebel.woff2') format('woff2'),
+        url('MBFModernRebel.woff') format('woff'),
+        url('MBFModernRebel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
