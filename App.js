@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import Home from './screens/Home';
 import PrimaryButton from './components/PrimaryButton';
 
@@ -11,7 +11,13 @@ export default function App() {
 
       <View style={styles.logoContainer}>
        <Home/>
-       <PrimaryButton/>  
+       <PrimaryButton/>
+       <View style={styles.textContainer}>
+          <Text style={styles.buttonText}>Já possui uma conta?</Text>
+          <TouchableOpacity>
+            <Text style={styles.titleText}>Login</Text>
+          </TouchableOpacity>
+      </View>    
       </View>    
 
     </ImageBackground>
@@ -34,5 +40,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     alignItems: 'center'
-  }
+  },
+  textContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    paddingBottom: 25
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+  },
+  titleText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'bold', 
+    marginLeft: 5,
+  },
 });
