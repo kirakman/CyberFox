@@ -1,18 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import Home from './screens/Home';
+import PrimaryButton from './components/PrimaryButton';
 
 export default function App() {
 
   return (
     <ImageBackground 
-      source={require('./assets/VsnSy25aRTuBJx3-83GrKQ.png')} 
-      style={styles.backgroundImage}
-    >
+      source={require('./assets/VsnSy25aRTuBJx3-83GrKQ.png')} style={styles.backgroundImage}>
 
       <View style={styles.logoContainer}>
        <Home/>
-      </View>
+       <PrimaryButton/>  
+      </View>    
 
     </ImageBackground>
   );
@@ -29,5 +29,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    flex: 1,
+    alignContent: 'center',
+    alignItems: 'center'
   }
 });
