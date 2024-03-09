@@ -19,11 +19,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   backgroundImage: {
     flex: 1,
     width: '100%', 
@@ -34,23 +29,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  logoImage: {
-    width: 250,
-    height: 250,
-  },
-   primaryText: {
-    fontSize: 50,
-    fontFamily: 'modern-rebel',
-    color: 'white',
-  },
-   secondaryText: {
-    fontSize: 50,
-    fontFamily: 'modern-rebel',
-    color: '#CA7745',
-  },
-  primaryButton: {
-    fontSize: 40,
-    color: 'white', 
   }
 });
