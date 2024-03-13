@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from
 import React, { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import PrimaryButton from '../components/PrimaryButton';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Home = () => {
@@ -22,6 +23,8 @@ const Home = () => {
         return null; 
     }
 
+    const navigation = useNavigation();
+
     return (
         <ImageBackground 
         source={require('../assets/VsnSy25aRTuBJx3-83GrKQ.png')} style={styles.backgroundImage}>
@@ -38,7 +41,9 @@ const Home = () => {
          <PrimaryButton/>
          <View style={styles.textContainer}>
             <Text style={styles.buttonText}>Já possui uma conta?</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+                 onPress={()=>navigation.navigate("Login")}
+            >
               <Text style={styles.titleText}>Login</Text>
             </TouchableOpacity>
         </View>    

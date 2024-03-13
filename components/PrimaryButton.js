@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
 
 const PrimaryButton = () => {
@@ -21,8 +22,13 @@ const PrimaryButton = () => {
         return null; 
     }
 
+    const navigation = useNavigation();
+
+
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button}
+    onPress={()=>navigation.navigate("Register")}
+    >
       <Text style={styles.buttonText}>Registrar-se</Text>
     </TouchableOpacity>
   );
