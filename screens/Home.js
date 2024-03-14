@@ -18,8 +18,10 @@ const Home = () => {
                 source={require('../assets/7j2QCS-QTOeQwWbbzVId3w-removebg-preview.png')} 
                 style={styles.logoImage}
             />
-            <Text style={styles.primaryText}>CYBER</Text>
-            <Text style={styles.secondaryText}>FOX</Text>
+            <Image
+              source={require('../assets/CyberFox.png')}
+              style={{ width: 350, height: 206, bottom: 10 }}
+            />
         </View>
          <PrimaryButton/>
          <View style={styles.textContainer}>
@@ -89,6 +91,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold', 
         marginLeft: 5,
       },
+      textImage: {
+       width: 400,
+       height: 206
+      }
 });
 
 export default Home;

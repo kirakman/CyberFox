@@ -1,10 +1,11 @@
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import SecondaryButton from '../components/SecondaryButton';
+
 
 const Register = () => {
     const navigation = useNavigation();
@@ -14,9 +15,14 @@ const Register = () => {
     return (
 
     <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ImageBackground source={require('../assets/-4reGoE9SKm8B11_KmfIwQ.png')} style={styles.backgroundImage}>
             <View style={styles.logoContainer}>
-                    <Text style={styles.primaryText}>Registrar</Text>
+                    <Image
+                     source={require('../assets/Cadastro.png')} 
+                     style={{width: 350, height: 80, top: 80}}
+                    />
+                     
             </View>
                 <View style={styles.text}>
                     <Text style={styles.textInput}>Endereço de Email</Text>
@@ -92,8 +98,8 @@ const Register = () => {
                         height: 52,
                         borderWidth: 1,
                         borderColor: 'white',
-                        marginRight: 4,
-                        marginLeft: 4,
+                        marginRight: 18,
+                        marginLeft: 18,
                         borderRadius: 10
                      }}
                     >
@@ -120,8 +126,8 @@ const Register = () => {
                         height: 52,
                         borderWidth: 1,
                         borderColor: 'white',
-                        marginRight: 4,
-                        marginLeft: 4,
+                        marginRight: 18,
+                        marginLeft: 18,
                         borderRadius: 10
                      }}
                     >
@@ -141,7 +147,7 @@ const Register = () => {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     marginVertical: 22,
-                    bottom: 20
+                    bottom: 30
                 }}>
                     <Text style={{fontSize: 16, color: 'white'}}>Já possui uma conta?</Text>
                     <Pressable onPress={() =>navigation.navigate("Login")}>
@@ -155,6 +161,7 @@ const Register = () => {
                 </View>
                 </View>
         </ImageBackground>
+        </ScrollView>
     </SafeAreaView>
     );
 };
