@@ -1,26 +1,26 @@
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as Font from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 
 
 const PrimaryButton = () => {
 
-    const [fontLoaded, setFontLoaded] = useState(false); 
+    // const [fontLoaded, setFontLoaded] = useState(false); 
 
-    useEffect(() => {
-        async function loadFont() {
-            await Font.loadAsync({
-                'neue-machina': require('../assets/fonts/NeueMachina-Regular.otf'),
-            });
-            setFontLoaded(true);
-        }
-        loadFont();
-    }, []);
+    // useEffect(() => {
+    //     async function loadFont() {
+    //         await Font.loadAsync({
+    //             'neue-machina': require('../assets/fonts/NeueMachina-Regular.otf'),
+    //         });
+    //         setFontLoaded(true);
+    //     }
+    //     loadFont();
+    // }, []);
 
-    if (!fontLoaded) {
-        return null; 
-    }
+    // if (!fontLoaded) {
+    //     return null; 
+    // }
 
     const navigation = useNavigation();
 
