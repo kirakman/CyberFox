@@ -3,13 +3,11 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import Checkbox from 'expo-checkbox';
-import SecondaryButton from '../components/SecondaryButton';
+import TertiaryButton from '../components/TertiaryButton';
 
 const Login = () => {
     const navigation = useNavigation();
     const [isPasswordShown, setIsPasswordShown] = useState(true);
-    const [isChecked, setChecked] = useState(false);
 
     return (
 
@@ -52,7 +50,7 @@ const Login = () => {
                     </View>
                     <View style={styles.secondContainer}>
                         <View style={styles.button}>
-                            <SecondaryButton/>
+                            <TertiaryButton/>
                         </View>
                     </View>
                 </View>

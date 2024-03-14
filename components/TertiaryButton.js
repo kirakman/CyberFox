@@ -3,16 +3,16 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SecondaryButton = () => {
+const TertiaryButton = () => {
 
     const navigation = useNavigation();
 
 
   return (
     <TouchableOpacity style={styles.button}
-    onPress={()=>navigation.navigate("Register")}
+    onPress={()=>navigation.navigate("Home")}
     >
-      <Text style={styles.buttonText}>Cadastrar</Text>
+      <Text style={styles.buttonText}>Logar</Text>
     </TouchableOpacity>
   );
 };
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
 }
 });
 
-export default SecondaryButton;
+export default TertiaryButton;
