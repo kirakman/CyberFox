@@ -1,26 +1,8 @@
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import * as Font from 'expo-font';
-
 
 const Register = () => {
-
-    // const [fontLoaded, setFontLoaded] = useState(false); 
-
-    // useEffect(() => {
-    //     async function loadFont() {
-    //         await Font.loadAsync({
-    //             'modern-rebel': require('../assets/fonts/MBFModernRebel.ttf'),
-    //         });
-    //         setFontLoaded(true);
-    //     }
-    //     loadFont();
-    // }, []);
-
-    // if (!fontLoaded) {
-    //     return null; 
-    // }
 
     const navigation = useNavigation();
 
@@ -55,7 +37,6 @@ const styles = StyleSheet.create({
     },
     primaryText: {
         fontSize: 70,
-        // fontFamily: 'modern-rebel',
         color: 'white',
         bottom: 250
     },
@@ -65,7 +46,6 @@ const styles = StyleSheet.create({
     textInput: {
         marginBottom: 12,
         fontSize: 16,
-        // fontWeight: 400,
         marginVertical: 8,
         color: 'white'
     },

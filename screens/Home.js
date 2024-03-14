@@ -1,27 +1,10 @@
 import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import React from 'react';
-import * as Font from 'expo-font';
 import PrimaryButton from '../components/PrimaryButton';
 import { useNavigation } from '@react-navigation/native';
 
 
 const Home = () => {
-
-    // const [fontLoaded, setFontLoaded] = useState(false); 
-
-    // useEffect(() => {
-    //     async function loadFont() {
-    //         await Font.loadAsync({
-    //             'modern-rebel': require('../assets/fonts/MBFModernRebel.ttf'),
-    //         });
-    //         setFontLoaded(true);
-    //     }
-    //     loadFont();
-    // }, []);
-
-    // if (!fontLoaded) {
-    //     return null; 
-    // }
 
     const navigation = useNavigation();
 
@@ -78,13 +61,11 @@ const styles = StyleSheet.create({
     },
     primaryText: {
         fontSize: 80,
-        // fontFamily: 'modern-rebel',
         color: 'white',
         marginBottom: -35,
     },
     secondaryText: {
         fontSize: 80,
-        // fontFamily: 'modern-rebel',
         color: '#CA7745',
     },
     button: {
