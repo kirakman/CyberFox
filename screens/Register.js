@@ -27,7 +27,7 @@ const Register = () => {
                 <View style={styles.text}>
                     <Text style={styles.textInput}>Endereço de Email</Text>
                     <View style={styles.inputs}>
-                        <TextInput 
+                        <TextInput
                             placeholder='Insira o seu melhor email'
                             placeholderTextColor={'white'}
                             keyboardType='email-address'
@@ -41,7 +41,8 @@ const Register = () => {
                             placeholder='Insira o número do seu celular'
                             placeholderTextColor={'white'}
                             keyboardType='numeric'
-                            color='white'/>
+                            color='white'
+                            />
                     </View>
                 </View>
                 <View style={styles.text}>
@@ -190,13 +191,13 @@ const styles = StyleSheet.create({
     },
     text: {
         top: 150,
-        marginLeft: 15
+        marginLeft: 15,
     },
     textInput: {
         marginBottom: 12,
         fontSize: 16,
         marginVertical: 15,
-        color: 'white'
+        color: 'white',
     },
     inputs: {
         width: "95%",
@@ -206,7 +207,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: 'rgba(0, 0, 0, 0.4)'    
     },
     icons: {
         position: "absolute",

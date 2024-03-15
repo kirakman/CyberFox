@@ -69,8 +69,8 @@ const Login = () => {
                                     height: 52,
                                     borderWidth: 1,
                                     borderColor: 'white',
-                                    marginRight: 4,
-                                    marginLeft: 4,
+                                    marginRight: 18,
+                                    marginLeft: 18,
                                     borderRadius: 10
                                 }}
                             >
@@ -97,8 +97,8 @@ const Login = () => {
                                     height: 52,
                                     borderWidth: 1,
                                     borderColor: 'white',
-                                    marginRight: 4,
-                                    marginLeft: 4,
+                                    marginRight: 18,
+                                    marginLeft: 18,
                                     borderRadius: 10
                                 }}
                             >
@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: 'rgba(0, 0, 0, 0.4)'    
     },
     icons: {
         position: "absolute",
