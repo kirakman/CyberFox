@@ -10,7 +10,7 @@ const SecondaryButton = () => {
 
   return (
     <TouchableOpacity style={styles.button}
-    onPress={()=>navigation.navigate("Register")}
+    onPress={()=>navigation.navigate("Home")}
     >
       <Text style={styles.buttonText}>Cadastrar</Text>
     </TouchableOpacity>
