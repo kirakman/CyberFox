@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView, Button } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
@@ -103,7 +103,6 @@ const Register = () => {
                 <View style={{flexDirection: 'column', alignContent: 'center', alignItems: 'center', bottom: 100, gap: 15, justifyContent: 'center'}}>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <TouchableOpacity
-                     onPress={() => console.log("Pressionou!")}
                      style={{
                         flex: 1,
                         alignItems: 'center',
