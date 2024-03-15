@@ -1,16 +1,25 @@
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView, Button } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import Checkbox from 'expo-checkbox';
 import SecondaryButton from '../components/SecondaryButton';
+import Modal from "react-native-modal";
+import TermsPage from '../components/TermsPage';
 
 
 const Register = () => {
     const navigation = useNavigation();
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setChecked] = useState(false);
+
+    const [isModalVisible, setModalVisible] = useState(false);
+      
+        const toggleModal = () => {
+          setModalVisible(!isModalVisible);
+          setChecked(true);
+        };
 
     return (
 
@@ -75,7 +84,7 @@ const Register = () => {
                             onValueChange={setChecked}
                             color={isChecked ? '#000' : undefined}
                             />
-                            <Text style={styles.paragraph}>Concordo com os termos e condições de uso e privacidade.</Text>
+                            <Text style={styles.paragraph} onPress={toggleModal}>Concordo com os termos e condições de uso e privacidade.</Text>
                         </View>
                         <View style={styles.button}>
                             <SecondaryButton/>
@@ -161,6 +170,15 @@ const Register = () => {
                     </Pressable>
                 </View>
                 </View>
+
+                <Modal isVisible={isModalVisible}
+                       onBackdropPress={() => setModalVisible(false)}
+                       >
+                    <View style={{ flex: 1 }}>
+                    <TermsPage/>
+                     <Button title="Fechar" onPress={toggleModal}/>
+                     </View>
+                </Modal>
         </ImageBackground>
         </ScrollView>
     </SafeAreaView>
@@ -225,6 +243,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
         marginLeft: 1,
+        textDecorationLine: 'underline',
+        // marginRight: 1
     },
     button: {
         top: 30,
