@@ -18,6 +18,10 @@ const Register = () => {
       
         const toggleModal = () => {
           setModalVisible(!isModalVisible);
+        };
+
+        const toggleModalDois = () => {
+          setModalVisible(!isModalVisible);
           setChecked(true);
         };
 
@@ -127,7 +131,6 @@ const Register = () => {
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <TouchableOpacity
-                     onPress={() => console.log("Pressionou!")}
                      style={{
                         flex: 1,
                         alignItems: 'center',
@@ -171,14 +174,36 @@ const Register = () => {
                 </View>
                 </View>
 
+                <View
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                }}
+                >
                 <Modal isVisible={isModalVisible}
                        onBackdropPress={() => setModalVisible(false)}
                        >
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
                     <TermsPage/>
-                     <Button title="Fechar" onPress={toggleModal}/>
+                     <TouchableOpacity onPress={toggleModalDois}
+                        style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row',
+                        height: 50,
+                        width: 160,
+                        borderWidth: 2,
+                        borderColor: 'white',
+                        borderRadius: 10,
+                        backgroundColor: '#CA7745'}}>
+                           <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>Concordar e Fechar</Text>
+                     </TouchableOpacity>
                      </View>
                 </Modal>
+                </View>
         </ImageBackground>
         </ScrollView>
     </SafeAreaView>
