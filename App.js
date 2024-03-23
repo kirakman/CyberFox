@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home , Login, Register } from './screens/index';
+import { Home , Login, Register, HomePage, Modulos } from './screens/index';
 
 
 const Stack = createStackNavigator();
@@ -12,6 +12,7 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator
+    // initialRouteName='HomePage'
     initialRouteName = 'Home'
     >
       <Stack.Screen
@@ -38,6 +39,23 @@ export default function App() {
         }}
 
       />
+       <Stack.Screen
+        name="HomePage"
+        component={HomePage}
+        options={{
+          headerShown:false
+        }}
+      />
+      <Stack.Screen
+        name="Modulos"
+        component={Modulos}
+        options={{
+          headerShown:false
+        }}
+      />
+     
+
+
     </Stack.Navigator>
   </NavigationContainer>
 

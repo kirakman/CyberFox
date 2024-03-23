@@ -10,7 +10,7 @@ const TertiaryButton = () => {
 
   return (
     <TouchableOpacity style={styles.button}
-    onPress={()=>navigation.navigate("Home")}
+    onPress={()=>navigation.navigate("HomePage")}
     >
       <Text style={styles.buttonText}>Logar</Text>
     </TouchableOpacity>
