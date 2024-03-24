@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View, Text, SafeAreaView, Image} from 'react-native';
-import Modulos from '../components/modulosCurso/ModulosCurso';
+
 import ModulosCurso from '../components/modulosCurso/ModulosCurso';
 import BotaoContinuar from '../components/botaoContinuar/BotaoContinuar';
 
@@ -40,7 +40,7 @@ const HomePage = () => {
 
         {/* chamando o modulo */}
 
-        <ModulosCurso nomeCurso="Introdução a Cibersegurança">
+        <ModulosCurso tituloModulo= " Modulo 1" nomeCurso="Introdução a Cibersegurança">
           <BotaoContinuar></BotaoContinuar>
         </ModulosCurso>
         
