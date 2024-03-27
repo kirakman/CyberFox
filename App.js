@@ -12,7 +12,7 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator
-    initialRouteName='Quiz'
+    initialRouteName='HomePage'
     // initialRouteName = 'Home'
     >
       <Stack.Screen
@@ -67,6 +67,9 @@ export default function App() {
           headerShown:false
         }}
       />
+     
+
+      
     </Stack.Navigator>
   </NavigationContainer>
 
