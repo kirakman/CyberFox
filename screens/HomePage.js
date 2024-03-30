@@ -22,7 +22,8 @@ const HomePage = () => {
         style={styles.backgroundImage}
       >
         <View style={styles.header}>
-          <Text style={styles.Textheader}>Seja bem vindo</Text>
+          <Text style={styles.Textheader}>Seja bem vindo,</Text>
+          <Text style={styles.TextheaderUsuario}>usuario</Text>
           <Image
             source={require("../assets/fotoDePerfil.png")}
             style={styles.fotoPerfil}
@@ -76,13 +77,18 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     padding: 15,
   },
   Textheader: {
     color: "#FFFFFF",
     fontSize: 25,
     marginLeft: 10,
+  },
+  TextheaderUsuario: {
+    color: "#FFFFFF",
+    fontSize: 25,
+    marginLeft: -5
   },
   fotoPerfil: {
     height: 60,

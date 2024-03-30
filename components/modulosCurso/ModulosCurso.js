@@ -19,8 +19,8 @@ const ModulosCurso = (props) =>{
 const styles = StyleSheet.create({
     modulosContainer:{ 
         backgroundColor: "rgba(2, 30, 31, 0.5)",
-        height: "32%",
-        width: "90%",
+        height: 250,
+        width: 400,
         marginTop: "5%",
         borderRadius: 15,
         overflow: "hidden",

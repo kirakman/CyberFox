@@ -12,7 +12,7 @@ const IndicadoTela = (props)=>{
 const styles = StyleSheet.create({
     indicadorContainer:{
         backgroundColor: "#CA7745",
-        right: "25%",
+        left: 5,
         flexDirection: "column",
         display: "flex",
         marginTop: "10%",
