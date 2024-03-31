@@ -1,18 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import IndicadoTela from "../components/indicadorTela/IndicadorTela";
 import BotaoCertificado from "../components/botaoCertificado/BotaoCertificado";
 import BotaoSair from "../components/botaoSair/BotaoSair";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 const Perfil = ()=>{
+     const navigation = useNavigation();
      const [nomeUsuario, setNomeUsuario] = useState("Usuario");
      const [novoNome, setNovoNome] = useState("")
 
-    const atualizarNome = ()=>{
-        setNomeUsuario(novoNome);
-        setNovoNome("");
+     useEffect(() => {
+      fetchNomeUsuario();
+     }, [])
+
+     const fetchNomeUsuario = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      const userName = await AsyncStorage.getItem(`userName_${userToken}`);
+      if(userName) {
+        setNomeUsuario(userName);
+      }
+     }
+
+     const atualizarNome = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      await AsyncStorage.setItem(`userName_${userToken}`, novoNome);
+      setNomeUsuario(novoNome);
+
+    
+      // Após a atualização do nome de usuário, navegue de volta para a HomePage
+      //navigation.navigate('Perfil');
+
+     
+      navigation.navigate('HomePage');
+    }
+
+    const logout = async () => {
+      await AsyncStorage.removeItem('userToken'); //limpa o estado de logado
+      navigation.navigate('Login');
     }
 
     
@@ -46,7 +74,7 @@ const Perfil = ()=>{
                 placeholder="Nome de usuario"
                 placeholderTextColor="#000000"
                 value={novoNome}
-                onChangeText={(text) => setNovoNome(text)}
+                onChangeText={setNovoNome}
               />
 
               <View style={styles.containerBotaoSalvar}>
@@ -75,13 +103,16 @@ const Perfil = ()=>{
 
              {/* chamando o botao de Sair */}
 
-             <BotaoSair>
+             <BotaoSair onPress={logout}
+             
+             >
 
              </BotaoSair>
 
             </View>
 
           </View>
+            
         </ImageBackground>
       </SafeAreaView>
     );

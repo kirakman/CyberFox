@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ImageBackground, StyleSheet, View, Text, SafeAreaView, Image} from 'react-native';
 import ModulosCurso from '../components/modulosCurso/ModulosCurso';
 import BotaoContinuar from '../components/botaoContinuar/BotaoContinuar';
@@ -10,11 +10,46 @@ import Modulos from './Modulos';
 import Quiz from './Quiz';
 import Perfil from './Perfil';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+
+
 
 
 const Tab =  createBottomTabNavigator();
 
 const HomePage = () => {
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [nomeUsuario, setNomeUsuario] = useState('');
+
+  useEffect(() => {
+    checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchNomeUsuario();
+    })
+
+    return unsubscribe
+
+  }, [isFocused]);
+
+  const checkIfLoggedIn = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    if (!userToken) {
+      navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
+    } else {
+      fetchNomeUsuario();
+    }
+  };
+
+  const fetchNomeUsuario = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    const name = await AsyncStorage.getItem(`userName_${userToken}`);
+    if (name) {
+      setNomeUsuario(name);
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -23,7 +58,7 @@ const HomePage = () => {
       >
         <View style={styles.header}>
           <Text style={styles.Textheader}>Seja bem vindo,</Text>
-          <Text style={styles.TextheaderUsuario}>usuario</Text>
+          <Text style={styles.TextheaderUsuario}>{nomeUsuario}</Text>
           <Image
             source={require("../assets/fotoDePerfil.png")}
             style={styles.fotoPerfil}
@@ -52,7 +87,7 @@ const HomePage = () => {
         </ModulosCurso>
 
        
-             
+            
       </ImageBackground>
     </SafeAreaView>
   );

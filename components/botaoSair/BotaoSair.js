@@ -3,12 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
-const BotaoSair = () =>{
-    const navigation = useNavigation();
+const BotaoSair = ({onPress}) =>{
+    
 
     return (
       <TouchableOpacity style={styles.containerSair}
-      onPress={()=> navigation.navigate("Home")}
+      onPress={onPress}
       >
         <MaterialIcons name="logout" size={40} color="black" />
         <Text style={styles.textoBotaoSair}>Sair</Text>
