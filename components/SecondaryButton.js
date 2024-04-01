@@ -3,14 +3,14 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SecondaryButton = () => {
+const SecondaryButton = ({ onPress }) => {
 
     const navigation = useNavigation();
 
 
   return (
     <TouchableOpacity style={styles.button}
-    onPress={()=>navigation.navigate("Home")}
+    onPress={onPress}
     >
       <Text style={styles.buttonText}>Cadastrar</Text>
     </TouchableOpacity>

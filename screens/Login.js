@@ -1,13 +1,47 @@
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
 import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert, ImageBackground, SafeAreaView, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "../services/firebaseConnection";
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import TertiaryButton from '../components/TertiaryButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = () => {
+export function Login() {
     const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isPasswordShown, setIsPasswordShown] = useState(true);
+  
+    const login = async () => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            if (user.emailVerified) {
+                // Salvar estado de login do usuário
+                await AsyncStorage.setItem('userToken', user.email);
+                
+                // Verificar se há um nome de usuário associado a este email
+                const userName = await AsyncStorage.getItem(`userName_${user.email}`);
+                //console.log('userName:', userName); // Adiciona um log para verificar o valor de userName
+    
+                if (userName && userName.trim() !== '') {
+                    // Se houver, navegue para a HomePage
+                    //console.log('Redirecionando para HomePage');
+                    navigation.navigate('HomePage');
+                } else {
+                    // Se não houver, navegue para a tela de Perfil para que o usuário possa inserir seu nome
+                    console.log('Redirecionando para Perfil');
+                    navigation.navigate('Perfil');
+                }
+            } else {
+                Alert.alert('Erro', 'Por favor, verifique seu e-mail para fazer login.');
+            }
+        } catch (error) {
+            Alert.alert('Error', error.message);
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -26,7 +60,9 @@ const Login = () => {
                                 placeholder='Insira o seu endereço de email'
                                 placeholderTextColor={'white'}
                                 keyboardType='email-address'
-                                color='white'/>
+                                color='white'
+                                value={email}
+                                onChangeText={value => setEmail(value)}/>
                         </View>
                     </View>
                     <View style={styles.text}>
@@ -36,7 +72,9 @@ const Login = () => {
                                 placeholder='Insira sua senha'
                                 placeholderTextColor={'white'}
                                 secureTextEntry={isPasswordShown}
-                                color='white'/>
+                                color='white'
+                                value={password}
+                                onChangeText={value => setPassword(value)}/>
 
                             <TouchableOpacity style={styles.icons} onPress={() => setIsPasswordShown(!isPasswordShown)}>
                                 {isPasswordShown ? (
@@ -48,7 +86,7 @@ const Login = () => {
                         </View>
                         <View style={styles.secondContainer}>
                             <View style={styles.button}>
-                                <TertiaryButton/>
+                                <TertiaryButton onPress={login} />
                             </View>
                         </View>
                     </View>

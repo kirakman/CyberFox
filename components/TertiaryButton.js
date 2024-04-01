@@ -3,14 +3,14 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
-const TertiaryButton = () => {
+const TertiaryButton = ({ onPress }) => {
 
     const navigation = useNavigation();
 
 
   return (
     <TouchableOpacity style={styles.button}
-    onPress={()=>navigation.navigate("HomePage")}
+    onPress={onPress}
     >
       <Text style={styles.buttonText}>Logar</Text>
     </TouchableOpacity>
