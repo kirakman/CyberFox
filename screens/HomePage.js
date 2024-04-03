@@ -82,7 +82,7 @@ const HomePage = () => {
 
         {/* chamando o modulo */}
 
-        <ModulosCurso tituloModulo= " Modulo 1" nomeCurso="Introdução a Cibersegurança">
+        <ModulosCurso tituloModulo= " Módulo 1" nomeCurso="Introdução a Cibersegurança">
           <BotaoContinuar></BotaoContinuar>
         </ModulosCurso>
 

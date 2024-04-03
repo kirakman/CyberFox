@@ -15,30 +15,30 @@ const Modulos = () => {
           style={styles.backgroundImage}
         >
           <ScrollView style={{ flex: 1 }}>
-            <IndicadoTela nomeTela="Modulos"></IndicadoTela>
+            <IndicadoTela nomeTela="Módulos"></IndicadoTela>
 
             {/* ficar atento aqui tambem que o erro pode vir daqui desse modulos */}
             <ModulosCurso
-              tituloModulo="Modulo 1"
+              tituloModulo="Módulo 1"
               nomeCurso="Introdução a Cibersegurança"
             >
               <IniciarCurso icon="unlock"></IniciarCurso>
             </ModulosCurso>
 
-            <ModulosCurso tituloModulo="Modulo 2" nomeCurso="Tipos de ataquees">
+            <ModulosCurso tituloModulo="Módulo 2" nomeCurso="Tipos de ataquees">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
 
-            <ModulosCurso tituloModulo="Modulo 3" nomeCurso="Decidir modulos">
+            <ModulosCurso tituloModulo="Módulo 3" nomeCurso="Decidir módulos">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
-            <ModulosCurso tituloModulo="Modulo 4" nomeCurso="Decidir modulos">
+            <ModulosCurso tituloModulo="Módulo 4" nomeCurso="Decidir módulos">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
-            <ModulosCurso tituloModulo="Modulo 5" nomeCurso="Decidir modulos">
+            <ModulosCurso tituloModulo="Módulo 5" nomeCurso="Decidir módulos">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
-            <ModulosCurso tituloModulo="Modulo 2" nomeCurso="Decidir modulos">
+            <ModulosCurso tituloModulo="Módulo 6" nomeCurso="Decidir módulos">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
           </ScrollView>
