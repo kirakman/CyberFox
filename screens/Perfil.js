@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   botaoSalvar: {
     height: 40,
     width: 100,
-    backgroundColor: "#000000",
+    backgroundColor: "#021E1F",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   nomeBotaoSalvar:{
     fontSize: 20,
-    color: "#FFFFFF",
+    color: "#CA7745",
   },
   textoInput:{
     color: "#FFFFFF",
