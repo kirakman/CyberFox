@@ -162,7 +162,7 @@ const HomePageTabBar = () => {
           paddingBottom: 6 
         },
         tabBarLabelStyle: {
-          fontSize: 22,
+          fontSize: 20,
         }
       }}
     >
