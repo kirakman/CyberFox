@@ -15,12 +15,11 @@ const Home = () => {
         <View style={styles.logoContainer}>
         <View style={styles.logoContainer}>
             <Image 
-                source={require('../assets/7j2QCS-QTOeQwWbbzVId3w-removebg-preview.png')} 
-                style={styles.logoImage}
+                source={require('../assets/novaraposa2.png')} 
             />
             <Image
               source={require('../assets/CyberFox.png')}
-              style={{ width: 350, height: 206, bottom: 10 }}
+              style={{ width: 350, height: 206, bottom: 210 }}
             />
         </View>
          <PrimaryButton/>
@@ -55,11 +54,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    logoImage: {
-        width: 250,
-        height: 250,
-        marginBottom: -30,
     },
     primaryText: {
         fontSize: 80,
