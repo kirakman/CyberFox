@@ -19,11 +19,11 @@ const Certificados = () => {
           <IndicadorTela nomeTela= "Certificados"></IndicadorTela>
 
           {/* ver se nao vai apresentar erro os modulos do quiz, e olha os componentes que ta chamando */}
-          <ModulosCertificados tituloQuiz= "Certificado - Modulo 1">
+          <ModulosCertificados tituloQuiz= "Certificado - Módulo 1">
             <IniciarQuiz iconQuiz= "unlock"></IniciarQuiz>
           </ModulosCertificados>
 
-          <ModulosCertificados tituloQuiz = "Certificado - modulo 2 ">
+          <ModulosCertificados tituloQuiz = "Certificado - Módulo 2 ">
           <IniciarQuiz iconQuiz= "lock"></IniciarQuiz>
           </ModulosCertificados>
 
