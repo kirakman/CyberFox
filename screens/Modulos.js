@@ -14,18 +14,15 @@ const Modulos = () => {
           source={require("../assets/BackgroundHomePage.png")}
           style={styles.backgroundImage}
         >
-          <ScrollView style={{ flex: 1 }}>
-            <IndicadoTela nomeTela="Módulos"></IndicadoTela>
+          <IndicadoTela nomeTela="Módulos"></IndicadoTela>
 
-            {/* ficar atento aqui tambem que o erro pode vir daqui desse modulos */}
-            <ModulosCurso
-              tituloModulo="Módulo 1"
-              nomeCurso="Introdução a Cibersegurança"
-            >
+          <ScrollView style={{ flex: 1}}>
+
+            <ModulosCurso tituloModulo="Módulo 1" nomeCurso="Introdução a Cibersegurança">
               <IniciarCurso icon="unlock"></IniciarCurso>
             </ModulosCurso>
 
-            <ModulosCurso tituloModulo="Módulo 2" nomeCurso="Tipos de ataquees">
+            <ModulosCurso tituloModulo="Módulo 2" nomeCurso="Tipos de ataques">
               <IniciarCurso icon="lock"></IniciarCurso>
             </ModulosCurso>
 

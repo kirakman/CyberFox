@@ -19,17 +19,16 @@ const ModulosCurso = (props) =>{
 const styles = StyleSheet.create({
     modulosContainer:{ 
         backgroundColor: "rgba(2, 30, 31, 0.5)",
-        height: 250,
-        width: 400,
-        marginTop: "5%",
+        height: 200,
+        width: 320,
+        marginTop: "10%",
         borderRadius: 15,
         overflow: "hidden",
-        alignItems: "center"
-        
+        alignItems: "center",
     },
     headerModulos:{
         backgroundColor: "#CA7745",
-        height: "25%",
+        height: "20%",
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     textoModulos: {
         color: "#000000",
         fontWeight: '700',
-        fontSize: 28,
+        fontSize: 26,
     },
     titulosContainer:{
         alignItems: "center",
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     },
     nomeCurso: {
         color: "#FFFFFF",
-        fontSize:32,
+        fontSize:26,
         textAlign: "center"
     }
 
