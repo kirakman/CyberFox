@@ -58,6 +58,7 @@ const Register = () => {
                                 keyboardType='email-address'
                                 color='white'
                                 onChangeText={value => setEmail(value)}
+                                style={{textAlign: 'center'}}
                             />
                         </View>
                     </View>
@@ -69,6 +70,7 @@ const Register = () => {
                                 placeholderTextColor={'white'}
                                 keyboardType='numeric'
                                 color='white'
+                                style={{textAlign: 'center'}}
                             />
                         </View>
                     </View>
@@ -81,6 +83,7 @@ const Register = () => {
                                 secureTextEntry={isPasswordShown}
                                 color='white'
                                 onChangeText={value => setPassword(value)}
+                                style={{textAlign: 'center'}}
                             />
 
                             <TouchableOpacity style={styles.icons} onPress={() => setIsPasswordShown(!isPasswordShown)}>
