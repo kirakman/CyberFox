@@ -5,7 +5,7 @@ import HomePage from './HomePage';
 import Modulos from './Modulos';
 import Quiz from './Quiz';
 import Perfil from './Perfil';
-
+import Certificados from './Certificados';
 
 export {
     Login,
@@ -14,6 +14,6 @@ export {
     HomePage,
     Modulos,
     Quiz, 
-    Perfil
-   
+    Perfil,
+    Certificados
 }

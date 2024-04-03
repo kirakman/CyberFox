@@ -7,8 +7,8 @@ import { Ionicons, } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Modulos from './Modulos';
-import Quiz from './Quiz';
 import Perfil from './Perfil';
+import Certificados from './Certificados';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -199,22 +199,22 @@ const HomePageTabBar = () => {
         }}
       />
       <Tab.Screen
-        name="Quiz"
-        component={Quiz}
+        name="Certificados"
+        component={Certificados}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <MaterialCommunityIcons name="text-box-check" size={32}  color={color}/>;
+              <MaterialCommunityIcons name="certificate-outline" size={32}  color={color}/>;
             }
             return (
-              <MaterialCommunityIcons name="text-box-check-outline" size={32}  color={color} />
+              <MaterialCommunityIcons name="certificate-outline" size={32}  color={color} />
             );
           },
         }}
       />
       <Tab.Screen
-        name="profile"
+        name="Perfil"
         component={Perfil}
         options={{
           headerShown: false,
