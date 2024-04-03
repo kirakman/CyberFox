@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#021E1F",
     width: "90%",
     height: 90,
-    marginTop: "10%",
+    marginTop: "15%", //Abaixar o header de apresentação
     borderRadius: 15,
     alignItems: "center",
     flexDirection: "row",
@@ -148,12 +148,12 @@ const HomePageTabBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#000000",
-        tabBarInactiveTintColor: "#333333",
+        tabBarActiveTintColor: "#CA7745",
+        tabBarInactiveTintColor: "#333333", 
         tabBarShowLabel: true,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: "#CA7745",
+          backgroundColor: "#000000", 
           borderTopWidth: 0,
           bottom: "5%",
           left: 14,
@@ -161,10 +161,10 @@ const HomePageTabBar = () => {
           elevation: 0,
           borderRadius: 15,
           height: 80,
+          paddingBottom: 6 
         },
         tabBarLabelStyle: {
           fontSize: 22,
-          paddingTop: 2,
         }
       }}
     >
@@ -175,24 +175,24 @@ const HomePageTabBar = () => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="home" size={40} color={color} />;
+              <Ionicons name="home" size={32} color={color} />;
             }
-            return <Ionicons name="home-outline" size={40} color={color} />;
+            return <Ionicons name="home-outline" size={32} color={color} />;
           },
         }}
       />
       <Tab.Screen
-        name="Modulos"
+        name="Módulos"
         component={Modulos}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="file-tray-stacked-sarp" size={40} color={color} />;
+              <Ionicons name="file-tray-stacked-sarp" size={32} color={color} />;
             }
             return (
               <Ionicons
-                name="file-tray-stacked-outline" size={40} color={color}
+                name="file-tray-stacked-outline" size={32} color={color}
               />
             );
           },
@@ -205,25 +205,25 @@ const HomePageTabBar = () => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <MaterialCommunityIcons name="text-box-check" size={40}  color={color}/>;
+              <MaterialCommunityIcons name="text-box-check" size={32}  color={color}/>;
             }
             return (
-              <MaterialCommunityIcons name="text-box-check-outline" size={40}  color={color} />
+              <MaterialCommunityIcons name="text-box-check-outline" size={32}  color={color} />
             );
           },
         }}
       />
       <Tab.Screen
-        name="Perfil"
+        name="profile"
         component={Perfil}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="person-circle" size={40} color={color} />;
+              <Ionicons name="person-circle" size={32} color={color} />;
             }
             return (
-              <Ionicons name="person-circle-outline" size={40} color={color} />
+              <Ionicons name="person-circle-outline" size={32} color={color} />
             );
           },
         }}
