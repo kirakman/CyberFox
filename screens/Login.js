@@ -62,7 +62,8 @@ export function Login() {
                                 keyboardType='email-address'
                                 color='white'
                                 value={email}
-                                onChangeText={value => setEmail(value)}/>
+                                onChangeText={value => setEmail(value)}
+                                style={{textAlign: 'center'}}/>
                         </View>
                     </View>
                     <View style={styles.text}>
@@ -74,7 +75,9 @@ export function Login() {
                                 secureTextEntry={isPasswordShown}
                                 color='white'
                                 value={password}
-                                onChangeText={value => setPassword(value)}/>
+                                onChangeText={value => setPassword(value)}
+                                style={{textAlign: 'center'}}/>
+                                
 
                             <TouchableOpacity style={styles.icons} onPress={() => setIsPasswordShown(!isPasswordShown)}>
                                 {isPasswordShown ? (
