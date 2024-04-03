@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, View, Text, SafeAreaView, Image} from 'rea
 import ModulosCurso from '../components/modulosCurso/ModulosCurso';
 import BotaoContinuar from '../components/botaoContinuar/BotaoContinuar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Modulos from './Modulos';
@@ -13,7 +13,7 @@ import Certificados from './Certificados';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-
+import * as Progress from 'react-native-progress';
 
 
 const Tab =  createBottomTabNavigator();
@@ -76,6 +76,11 @@ const HomePage = () => {
         >
           <View style={styles.containerProgresso}>
             <Text style={styles.textoProgressoCurso}>Progresso do curso</Text>
+          </View>
+          <View style={{alignItems: 'center', top: 50}}>
+          <Progress.Bar progress={0.7} width={350} height={30}
+          color="#CA7745" 
+          unfilledColor="#021E1F"/>
           </View>
         </View>
 
