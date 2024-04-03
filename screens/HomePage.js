@@ -57,12 +57,11 @@ const HomePage = () => {
         style={styles.backgroundImage}
       >
         <View style={styles.header}>
-          <Text style={styles.Textheader}>Seja bem vindo,</Text>
-          <Text style={styles.TextheaderUsuario}>{nomeUsuario}</Text>
+          <Text style={styles.Textheader}>Seja bem vindo(a), {nomeUsuario}</Text>
           <Image
             source={require("../assets/fotoDePerfil.png")}
             style={styles.fotoPerfil}
-          ></Image>
+          />
         </View>
 
         <View // Container do progresso do curso
@@ -70,7 +69,7 @@ const HomePage = () => {
             backgroundColor: "rgba(2, 30, 31, 0.5)", // cor do container de fundo
             height: "20%",
             width: "90%",
-            marginTop: "10%",
+            marginTop: "15%",
             borderRadius: 15,
             overflow: "hidden",
           }}
@@ -107,13 +106,12 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#021E1F",
     width: "90%",
-    height: 90,
-    marginTop: "15%", //Abaixar o header de apresentação
+    height: 80,
+    marginTop: "15%",
     borderRadius: 15,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around",
-    padding: 15,
   },
   Textheader: {
     color: "#FFFFFF",
@@ -131,14 +129,14 @@ const styles = StyleSheet.create({
   },
   containerProgresso: {
     backgroundColor: "#CA7745",
-    height: "30%",
+    height: "25%",
     alignItems: "center",
     justifyContent: "center",
   },
   textoProgressoCurso: {
     color: "#000000",
     fontWeight: '700',
-    fontSize: 28,
+    fontSize: 26,
   },
  
  
