@@ -1,10 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 const BotaoCertificado = ()=>{
+
+    const navigation = useNavigation();
+
     return(
-        <TouchableOpacity style={styles.emitiCertificado}>
+        <TouchableOpacity style={styles.emitiCertificado} onPress={() => navigation.navigate('Certificados')}>
             <Text style ={styles.textoBotaoCertificado}>Clique aqui</Text>
             <MaterialCommunityIcons name="certificate-outline" size={30} color="black" />
         </TouchableOpacity>

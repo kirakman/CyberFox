@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import IndicadoTela from "../components/indicadorTela/IndicadorTela";
 import BotaoCertificado from "../components/botaoCertificado/BotaoCertificado";
 import BotaoSair from "../components/botaoSair/BotaoSair";
@@ -25,18 +25,17 @@ const Perfil = ()=>{
       }
      }
 
-     const atualizarNome = async () => {
+    const atualizarNome = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
       await AsyncStorage.setItem(`userName_${userToken}`, novoNome);
       setNomeUsuario(novoNome);
-
-    
-      // Após a atualização do nome de usuário, navegue de volta para a HomePage
-      //navigation.navigate('Perfil');
-
-     
-      navigation.navigate('HomePage');
-    }
+      Alert.alert(
+          "Sucesso!",
+          "Nome de usuário atualizado com sucesso!",
+          [{ text: "OK", onPress: () => navigation.navigate('HomePage') }],
+          { cancelable: false }
+      );
+  }
 
     const logout = async () => {
       await AsyncStorage.removeItem('userToken'); //limpa o estado de logado
@@ -68,7 +67,7 @@ const Perfil = ()=>{
                 marginBottom: 20,
               }}
             >
-              <Text style = {styles.textoInput}>Nome de usuario</Text>
+              <Text style = {styles.textoInput}>Nome de usuário</Text>
               <TextInput
                 style={styles.inputTexto}
                 placeholder="Nome de usuario"
@@ -129,9 +128,9 @@ const styles = StyleSheet.create({
   },
   containerPerfil: {
     backgroundColor: "rgba(2, 30, 31, 0.5)",
-    height: "70%",
+    height: "60%",
     width: "90%",
-    marginTop: "5%",
+    marginTop: "10%",
     borderRadius: 25,
     overflow: "hidden",
     alignItems: "center",
@@ -146,7 +145,6 @@ const styles = StyleSheet.create({
   nomeUsuario: {
     color: "#FFFFFF",
     fontSize: 22,
-    // fontWeight: "500",
   },
   inputTexto: {
     backgroundColor: "#CA7745",
@@ -155,8 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     borderRadius: 20,
     padding: 10,
-    // justifyContent: "center",
-    // alignItems:  "center",
+
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 18
@@ -169,7 +166,7 @@ const styles = StyleSheet.create({
   botaoSalvar: {
     height: 40,
     width: 100,
-    backgroundColor: "#CA7745",
+    backgroundColor: "#000000",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -177,13 +174,11 @@ const styles = StyleSheet.create({
   },
   nomeBotaoSalvar:{
     fontSize: 20,
-    color: "#000000",
-    // fontWeight: "500"
+    color: "#FFFFFF",
   },
   textoInput:{
     color: "#FFFFFF",
     fontSize: 22, 
-    // fontWeight: 400,
     marginLeft: 10
   },
  
