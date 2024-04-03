@@ -77,10 +77,15 @@ const HomePage = () => {
           <View style={styles.containerProgresso}>
             <Text style={styles.textoProgressoCurso}>Progresso do curso</Text>
           </View>
+
           <View style={{alignItems: 'center', top: 50}}>
           <Progress.Bar progress={0.7} width={350} height={30}
           color="#CA7745" 
           unfilledColor="#021E1F"/>
+          <View style={{justifyContent: 'space-between', flexDirection: 'row', width: 350, top: 5}}>
+          <Ionicons name="flag" size={22} color="white" />          
+          <Ionicons name="trophy" size={22} color="white" />          
+          </View>
           </View>
         </View>
 
