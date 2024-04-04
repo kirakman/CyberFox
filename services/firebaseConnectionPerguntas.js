@@ -1,6 +1,5 @@
-import { initializeApp } from 'firebase/app'
-import {getAuth} from 'firebase/auth'
-
+/* import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAhqRmNngVbbjDFgMW7KfNqzOqtHQZyaJM",
@@ -10,7 +9,9 @@ const firebaseConfig = {
     storageBucket: "cyber-fox-104a0.appspot.com",
     messagingSenderId: "655482179770",
     appId: "1:655482179770:web:65ac5d309989b9f5c53283",
-  };
+};
 
-  const app = initializeApp(firebaseConfig)
-  export const auth = getAuth(app)
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+
+ */

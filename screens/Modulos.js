@@ -6,8 +6,10 @@ import IndicadoTela from "../components/indicadorTela/IndicadorTela";
 import ModulosCurso from "../components/modulosCurso/ModulosCurso";
 import IniciarCurso from "../components/botaoInicarCurso/InicarCurso";
 
-
 const Modulos = () => {
+
+    
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
