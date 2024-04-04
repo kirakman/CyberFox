@@ -50,6 +50,14 @@ const HomePage = () => {
     }
   };
 
+  const truncateName = (name, maxLength) => {
+    if (name.length > maxLength) {
+      return name.substring(0, maxLength - 3) + '...';
+    } else {
+      return name;
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -57,8 +65,8 @@ const HomePage = () => {
         style={styles.backgroundImage}
       >
         <View style={styles.header}>
-          <Text style={styles.Textheader}>Seja bem vindo(a), {nomeUsuario}</Text>
-          <Image
+        <Text style={styles.Textheader}>Seja bem vindo(a), {truncateName(nomeUsuario, 10)}</Text>
+        <Image
             source={require("../assets/fotoDePerfil.png")}
             style={styles.fotoPerfil}
           />
