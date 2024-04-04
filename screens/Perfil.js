@@ -5,6 +5,8 @@ import BotaoCertificado from "../components/botaoCertificado/BotaoCertificado";
 import BotaoSair from "../components/botaoSair/BotaoSair";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from 'expo-image-picker';
+
 
 
 
@@ -20,6 +22,7 @@ const Perfil = ()=>{
      const fetchNomeUsuario = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
       const userName = await AsyncStorage.getItem(`userName_${userToken}`);
+      
       if(userName) {
         setNomeUsuario(userName);
       }
@@ -43,7 +46,22 @@ const Perfil = ()=>{
       navigation.navigate('Login');
     }
 
-    
+    const [image, setImage] = useState('https://www.caribbeangamezone.com/wp-content/uploads/2018/03/avatar-placeholder.png');
+
+    const handleImagePicker = async ()=>{
+      const resultado = await ImagePicker.launchImageLibraryAsync({
+        aspect:[4,4],
+        allowsEditing: true,
+        base64: true,
+        quality: 1
+      });
+
+      if(!resultado.canceled){
+        console.log(resultado.assets[0].uri)
+        setImage(resultado.assets[0].uri)
+      }
+    };
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
@@ -54,10 +72,12 @@ const Perfil = ()=>{
 
           <View style={styles.containerPerfil}>
             <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <Image
-                source={require("../assets/fotoDePerfil.png")}
-                style={styles.fotoPerfil}
-              ></Image>
+              <TouchableOpacity onPress={handleImagePicker}>
+                <Image
+                  source={{ uri: image }}
+                  style={styles.fotoPerfil}
+                ></Image>
+              </TouchableOpacity>
               <Text style={styles.nomeUsuario}>{nomeUsuario}</Text>
             </View>
 
@@ -68,7 +88,7 @@ const Perfil = ()=>{
                 marginBottom: 20,
               }}
             >
-              <Text style = {styles.textoInput}>Nome de usuario</Text>
+              <Text style={styles.textoInput}>Nome de usuario</Text>
               <TextInput
                 style={styles.inputTexto}
                 placeholder="Nome de usuario"
@@ -85,34 +105,23 @@ const Perfil = ()=>{
                   <Text style={styles.nomeBotaoSalvar}>Salvar</Text>
                 </TouchableOpacity>
               </View>
-
             </View>
 
-            
             <View
               style={{
-                flexDirection: "column"
+                flexDirection: "column",
               }}
             >
-              <Text style = {styles.textoInput}>Meus certificados</Text>
-              
+              <Text style={styles.textoInput}>Meus certificados</Text>
+
               {/* chamando o botao dos certificados */}
-             <BotaoCertificado>
+              <BotaoCertificado></BotaoCertificado>
 
-             </BotaoCertificado>
+              {/* chamando o botao de Sair */}
 
-             {/* chamando o botao de Sair */}
-
-             <BotaoSair onPress={logout}
-             
-             >
-
-             </BotaoSair>
-
+              <BotaoSair onPress={logout}></BotaoSair>
             </View>
-
           </View>
-            
         </ImageBackground>
       </SafeAreaView>
     );
@@ -142,6 +151,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginTop: 30,
     marginBottom: 15,
+    borderRadius: 50
   },
   nomeUsuario: {
     color: "#FFFFFF",
