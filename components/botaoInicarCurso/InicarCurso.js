@@ -1,11 +1,16 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Octicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native';
+
 
 const IniciarCurso = (props)=>{
 
+    const navigation = useNavigation();
+
+
     return(
-        <TouchableOpacity style = {styles.botaoContainer}>
+        <TouchableOpacity style = {styles.botaoContainer} onPress={props.onPress}>
             <Text style = {styles.textoBotao} >Inciar
             </Text>
             {props.icon && <Octicons name={props.icon} size={35} color="#000000" />}

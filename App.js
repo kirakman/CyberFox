@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home , Login, Register, HomePage, Modulos, Quiz, Perfil } from './screens/index';
+import { Home , Login, Register, HomePage, Modulos, Quiz, Perfil, Exercicio1 } from './screens/index';
 
 
 const Stack = createStackNavigator();
@@ -63,6 +63,13 @@ export default function App() {
        <Stack.Screen
         name="Perfil"
         component={Perfil}
+        options={{
+          headerShown:false
+        }}
+      />
+       <Stack.Screen
+        name="Exercicio1"
+        component={Exercicio1}
         options={{
           headerShown:false
         }}

@@ -6,6 +6,8 @@ import Modulos from './Modulos';
 import Quiz from './Quiz';
 import Perfil from './Perfil';
 import Certificados from './Certificados';
+import Exercicio1 from './Exercicio1';
+
 
 export {
     Login,
@@ -15,5 +17,6 @@ export {
     Modulos,
     Quiz, 
     Perfil,
-    Certificados
+    Certificados,
+    Exercicio1
 }

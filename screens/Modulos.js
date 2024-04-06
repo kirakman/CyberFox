@@ -6,8 +6,14 @@ import IndicadoTela from "../components/indicadorTela/IndicadorTela";
 import ModulosCurso from "../components/modulosCurso/ModulosCurso";
 import IniciarCurso from "../components/botaoInicarCurso/InicarCurso";
 
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const Modulos = () => {
+
+  const navigation = useNavigation();
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ImageBackground
@@ -19,7 +25,7 @@ const Modulos = () => {
           <ScrollView style={{ flex: 1}}>
 
             <ModulosCurso tituloModulo="Módulo 1" nomeCurso="Introdução a Cibersegurança">
-              <IniciarCurso icon="unlock"></IniciarCurso>
+              <IniciarCurso icon="unlock" onPress={() => navigation.navigate("Exercicio1")}></IniciarCurso> 
             </ModulosCurso>
 
             <ModulosCurso tituloModulo="Módulo 2" nomeCurso="Tipos de ataques">
