@@ -3,8 +3,7 @@ import { ImageBackground, StyleSheet, View, Text, SafeAreaView, Image} from 'rea
 import ModulosCurso from '../components/modulosCurso/ModulosCurso';
 import BotaoContinuar from '../components/botaoContinuar/BotaoContinuar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Modulos from './Modulos';
 import Perfil from './Perfil';
