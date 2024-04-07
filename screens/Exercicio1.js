@@ -5,6 +5,7 @@ import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity
 import Modal from "react-native-modal";
 import TituloExercicio from '../components/TituloExercicio';
 import TituloAula from '../components/TituloAula';
+import TituloQuiz from '../components/TituloQuiz';
 
 const Exercicio1 = () => {
     const [isModalVisible, setModalVisible] = useState(true); 
@@ -16,10 +17,10 @@ const Exercicio1 = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ImageBackground source={require('../assets/-4reGoE9SKm8B11_KmfIwQ.png')} style={styles.backgroundImage}>
-                    <View style={{alignItems: 'center', }}>
+                <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
+                    <View style={{alignItems: 'center'}}>
                         <TituloExercicio nomeExercicio="Módulo 1: Introdução a Cibersegurança" style={{alignItems: 'center'}} onPress={toggleModal}/>
-                        <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)}>
+                        <Modal isVisible={isModalVisible}>
                             <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
                                 <ScrollView style={{ width: '90%' }}>
                                     <TituloAula nomeAula="O que é Pishing?"/>
@@ -44,6 +45,12 @@ const Exercicio1 = () => {
                                 </TouchableOpacity>
                             </View>
                         </Modal>
+                        <View style={{ flex: 1, alignItems: 'flex-start', top: '100%', gap: 15}}>
+                            <TituloQuiz nomeQuiz="O que é Pishing?"/>
+                            <TituloQuiz nomeQuiz="Onde é aplicado o Pishing?"/>
+                            <TituloQuiz nomeQuiz="Como identificar o Pishing via E-mail?"/>
+                            <TituloQuiz nomeQuiz="Evitando o Pishing..."/>
+                        </View>
                     </View>
                 </ImageBackground>
             </ScrollView>

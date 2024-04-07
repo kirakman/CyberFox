@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 
 const TituloAula = (props)=>{
     return(
-        <TouchableOpacity style={styles.indicadorContainer}>
+        <View style={styles.indicadorContainer}>
         <View>
             <Text style = {styles.textoIndicador}>{props.nomeAula}</Text>
         </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
