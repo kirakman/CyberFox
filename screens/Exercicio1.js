@@ -8,10 +8,43 @@ import TituloAula from '../components/TituloAula';
 import TituloQuiz from '../components/TituloQuiz';
 
 const Exercicio1 = () => {
-    const [isModalVisible, setModalVisible] = useState(true); 
+    const [isModalVisible1, setModalVisible1] = useState(true); 
+    const [isModalVisible2, setModalVisible2] = useState(false); 
+    const [isModalVisible3, setModalVisible3] = useState(false); 
+    const [isModalVisible4, setModalVisible4] = useState(false); 
+    const [isModalVisible5, setModalVisible5] = useState(false); 
 
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
+    const toggleModal1 = () => {
+        setModalVisible1(!isModalVisible1);
+    };
+
+    const toggleModal2 = () => {
+        setModalVisible2(!isModalVisible2);
+    };
+
+    const closeModal2 = () => {
+        setModalVisible2(!isModalVisible2);
+    };
+    const toggleModal3 = () => {
+        setModalVisible3(!isModalVisible3);
+    };
+
+    const closeModal3 = () => {
+        setModalVisible3(!isModalVisible3);
+    };
+    const toggleModal4 = () => {
+        setModalVisible4(!isModalVisible4);
+    };
+
+    const closeModal4 = () => {
+        setModalVisible4(!isModalVisible4);
+    };
+    const toggleModal5 = () => {
+        setModalVisible5(!isModalVisible5);
+    };
+
+    const closeModal5 = () => {
+        setModalVisible5(!isModalVisible5);
     };
 
     return (
@@ -19,8 +52,8 @@ const Exercicio1 = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
                     <View style={{alignItems: 'center'}}>
-                        <TituloExercicio nomeExercicio="Módulo 1: Introdução a Cibersegurança" style={{alignItems: 'center'}} onPress={toggleModal}/>
-                        <Modal isVisible={isModalVisible}>
+                        <TituloExercicio nomeExercicio="Módulo 1: Introdução a Cibersegurança" style={{alignItems: 'center'}} onPress={toggleModal1}/>
+                        <Modal isVisible={isModalVisible1}>
                             <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
                                 <ScrollView style={{ width: '90%' }}>
                                     <TituloAula nomeAula="O que é Pishing?"/>
@@ -40,16 +73,64 @@ const Exercicio1 = () => {
                                         {'\u2022'} Duis at congue felis. Praesent sagittis tristique nulla nec lacinia. Vivamus suscipit auctor massa, id fringilla orci posuere in. Fusce vulputate mi ut diam pharetra, id bibendum ex dictum. Curabitur sed nisl sit amet nunc tempus tempor a ac neque. Integer at leo sed magna faucibus commodo. Curabitur euismod enim eget ex pretium, et dictum ipsum aliquet. Phasellus nec vestibulum elit. Nulla luctus vehicula augue, ac tempor lorem pharetra a. Vivamus dictum, dolor vel ullamcorper volutpat, odio ligula auctor velit, nec gravida ipsum quam ut libero. Vivamus condimentum nunc nec mauris fringilla, in volutpat metus tristique. Sed ullamcorper, mauris a varius mattis, urna purus laoreet dolor, eu laoreet elit ante at sem. Donec venenatis, lorem nec interdum tincidunt, metus arcu sollicitudin libero, et bibendum eros libero a justo. In hac habitasse platea dictumst. Ut efficitur scelerisque magna, nec dictum sapien consequat in. Sed hendrerit malesuada turpis, at tincidunt nisl elementum a. Sed sed eros nec libero placerat convallis.
                                     </Text>
                                 </ScrollView>
-                                <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+                                <TouchableOpacity onPress={toggleModal1} style={styles.closeButton}>
                                     <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                                 </TouchableOpacity>
                             </View>
                         </Modal>
                         <View style={{ flex: 1, alignItems: 'flex-start', top: '100%', gap: 15}}>
-                            <TituloQuiz nomeQuiz="O que é Pishing?"/>
-                            <TituloQuiz nomeQuiz="Onde é aplicado o Pishing?"/>
-                            <TituloQuiz nomeQuiz="Como identificar o Pishing via E-mail?"/>
-                            <TituloQuiz nomeQuiz="Evitando o Pishing..."/>
+
+                            {/* Primeira pergunta */}
+                            <View>
+                            <TituloQuiz nomeQuiz="O que é Pishing?" onPress={toggleModal2}/>
+                            <Modal isVisible={isModalVisible2}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
+                            <TituloAula nomeAula="O que é Pishing?"/>
+                            <TouchableOpacity onPress={closeModal2} style={styles.closeButton}>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                            </TouchableOpacity>
+                            </View>
+                            </Modal>
+                            </View>
+
+                            {/* Segunda pergunta */}
+                            <View>
+                            <TituloQuiz nomeQuiz="Onde é aplicado o Pishing?" onPress={toggleModal3}/>
+                            <Modal isVisible={isModalVisible3}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
+                            <TituloAula nomeAula="Onde é aplicado o Pishing?"/>
+                            <TouchableOpacity onPress={closeModal3} style={styles.closeButton}>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                            </TouchableOpacity>
+                            </View>
+                            </Modal>
+                            </View>
+
+                            {/* Terceira pergunta */}
+                            <View>
+                            <TituloQuiz nomeQuiz="Como identificar o Pishing via E-mail?" onPress={toggleModal4}/>
+                            <Modal isVisible={isModalVisible4}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
+                            <TituloAula nomeAula="Como identificar o Pishing via E-mail?"/>
+                            <TouchableOpacity onPress={closeModal4} style={styles.closeButton}>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                            </TouchableOpacity>
+                            </View>
+                            </Modal>
+                            </View>
+
+                            {/* Quarta pergunta */}
+                            <View>
+                            <TituloQuiz nomeQuiz="Evitando o Pishing..." onPress={toggleModal5}/>
+                            <Modal isVisible={isModalVisible5}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15}}>
+                            <TituloAula nomeAula="Evitando o Pishing..."/>
+                            <TouchableOpacity onPress={closeModal5} style={styles.closeButton}>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                            </TouchableOpacity>
+                            </View>
+                            </Modal>
+                            </View>
                         </View>
                     </View>
                 </ImageBackground>
