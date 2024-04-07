@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 
 
-const TituloExercicio = (props)=>{
+const TituloAula = (props)=>{
     return(
-        <TouchableOpacity style={styles.indicadorContainer} onPress={props.onPress}>
+        <TouchableOpacity style={styles.indicadorContainer}>
         <View>
-            <Text style = {styles.textoIndicador}>{props.nomeExercicio}</Text>
+            <Text style = {styles.textoIndicador}>{props.nomeAula}</Text>
         </View>
         </TouchableOpacity>
     )
@@ -14,15 +14,12 @@ const TituloExercicio = (props)=>{
 
 const styles = StyleSheet.create({
     indicadorContainer:{
-        backgroundColor: "#fff",
-        marginTop: "15%",
-        height: 90,
-        width: '90%',
+        marginBottom: 25,
+        marginTop: 25,
         justifyContent: "center",
-        borderRadius: 15,
     },
     textoIndicador: {
-        color: "#000000",
+        color: "#CA7745",
         fontSize:  25,
         fontWeight: "700",
         textAlign: "center"
@@ -30,4 +27,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default TituloExercicio;
+export default TituloAula;
