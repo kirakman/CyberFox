@@ -6,6 +6,7 @@ import BotaoSair from "../components/botaoSair/BotaoSair";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from 'expo-image-picker';
+import { Feather } from '@expo/vector-icons';
 
 
 
@@ -49,9 +50,11 @@ const Perfil = ()=>{
     const [image, setImage] = useState('https://www.caribbeangamezone.com/wp-content/uploads/2018/03/avatar-placeholder.png');
 
     const handleImagePicker = async ()=>{
+    // aqui serve para pedir a permisao para entrar na galeria
       const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (permissao.status === 'granted') {
         console.log("Permissão aceita");
+        //aqui entra na galeria, quando a permisao for aceita
         const resultado = await ImagePicker.launchImageLibraryAsync({
           aspect:[4,4],
           allowsEditing: true,
@@ -80,10 +83,10 @@ const Perfil = ()=>{
           <View style={styles.containerPerfil}>
             <View style={{ flexDirection: "column", alignItems: "center" }}>
               <TouchableOpacity onPress={handleImagePicker}>
-                <Image
-                  source={{ uri: image }}
-                  style={styles.fotoPerfil}
-                ></Image>
+                <Image source={{ uri: image }} style={styles.fotoPerfil} />
+                <View style={styles.inconeContainer}>
+                  <Feather name="edit-2" size={15} color="black" />
+                </View>
               </TouchableOpacity>
               <Text style={styles.nomeUsuario}>{nomeUsuario}</Text>
             </View>
@@ -159,6 +162,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 15,
     borderRadius: 50
+  },
+  inconeContainer:{
+    position: 'absolute',
+    bottom: 15,
+    right: 5,
+    backgroundColor: '#F4F3F3',
+    borderRadius: 50,
+    padding:5
   },
   nomeUsuario: {
     color: "#FFFFFF",
