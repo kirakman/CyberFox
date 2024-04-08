@@ -49,18 +49,25 @@ const Perfil = ()=>{
     const [image, setImage] = useState('https://www.caribbeangamezone.com/wp-content/uploads/2018/03/avatar-placeholder.png');
 
     const handleImagePicker = async ()=>{
-      const resultado = await ImagePicker.launchImageLibraryAsync({
-        aspect:[4,4],
-        allowsEditing: true,
-        base64: true,
-        quality: 1
-      });
-
-      if(!resultado.canceled){
-        console.log(resultado.assets[0].uri)
-        setImage(resultado.assets[0].uri)
+      const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (permissao.status === 'granted') {
+        console.log("Permissão aceita");
+        const resultado = await ImagePicker.launchImageLibraryAsync({
+          aspect:[4,4],
+          allowsEditing: true,
+          base64: true,
+          quality: 1
+        });
+  
+        if(!resultado.canceled){
+          console.log(resultado.assets[0].uri)
+          setImage(resultado.assets[0].uri)
+        } else {
+        console.log("Permissão negada ou não aceita");
+        return;
       }
-    };
+    }
+  };
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
