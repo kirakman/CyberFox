@@ -1,7 +1,7 @@
 // Exercicio1.js
 
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import Modal from "react-native-modal";
 import TituloExercicio from '../components/TituloExercicio';
 import TituloAula from '../components/TituloAula';
@@ -49,6 +49,29 @@ const Exercicio1 = () => {
     };
 
     const [selectedOption1, setSelectedOption1] = useState(null);
+
+    const handleSubmit = () => {
+        if (selectedOption1 === "option1") {
+            Alert.alert(
+                "Parabéns!",
+                "Você acertou!",
+            [
+                {
+                    text: "OK",
+                    onPress: () => {
+                        closeModal2();
+                    }
+                }
+            ]
+        );
+        } else {
+            Alert.alert(
+                "Opção incorreta",
+                "Por favor, tente novamente."
+             
+            );
+        }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -109,6 +132,9 @@ const Exercicio1 = () => {
                                 <Picker.Item label="Opção D" value="option4" />
                             </Picker>
 
+                            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
+                            </TouchableOpacity>
                             <TouchableOpacity onPress={closeModal2} style={styles.closeButton}>
                                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                             </TouchableOpacity>
@@ -187,11 +213,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#CA7745',
         marginTop: 20
     },
+    submitButton: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        height: 50,
+        width: 160,
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 10,
+        backgroundColor: '#021E1F',
+        marginTop: 20
+    },
     pickerStyles: {
         height: 50,
         width: 200,
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 20
       },
       definicoes: {
         gap: 16,
