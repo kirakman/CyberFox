@@ -3,16 +3,17 @@ import { ImageBackground, StyleSheet, View, Text, SafeAreaView, Image} from 'rea
 import ModulosCurso from '../components/modulosCurso/ModulosCurso';
 import BotaoContinuar from '../components/botaoContinuar/BotaoContinuar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Modulos from './Modulos';
+import Quiz from './Quiz';
 import Perfil from './Perfil';
-import Certificados from './Certificados';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-import * as Progress from 'react-native-progress';
+
 
 
 const Tab =  createBottomTabNavigator();
@@ -21,11 +22,12 @@ const HomePage = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [nomeUsuario, setNomeUsuario] = useState('');
+  const [fotoPerfil, setFotoPerfil] = useState('');
 
   useEffect(() => {
     checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
     const unsubscribe = navigation.addListener('focus', () => {
-      fetchNomeUsuario();
+      fetchDadosUsuario();
     })
 
     return unsubscribe
@@ -37,23 +39,19 @@ const HomePage = () => {
     if (!userToken) {
       navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
     } else {
-      fetchNomeUsuario();
+      fetchDadosUsuario();
     }
   };
 
-  const fetchNomeUsuario = async () => {
+  const fetchDadosUsuario = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     const name = await AsyncStorage.getItem(`userName_${userToken}`);
+    const photo = await AsyncStorage.getItem(`userPhoto_${userToken}`);
     if (name) {
       setNomeUsuario(name);
     }
-  };
-
-  const truncateName = (name, maxLength) => {
-    if (name.length > maxLength) {
-      return name.substring(0, maxLength - 3) + '...';
-    } else {
-      return name;
+    if (photo) {
+      setFotoPerfil(photo);
     }
   };
 
@@ -66,9 +64,9 @@ const HomePage = () => {
         <View style={styles.header}>
         <Text style={styles.Textheader}>Seja bem vindo(a), {truncateName(nomeUsuario, 10)}</Text>
         <Image
-            source={require("../assets/fotoDePerfil.png")}
+            source={fotoPerfil ? { uri: fotoPerfil } : require('../assets/fotoDePerfil.png')}
             style={styles.fotoPerfil}
-          />
+          ></Image>
         </View>
 
         <View // Container do progresso do curso
@@ -76,7 +74,7 @@ const HomePage = () => {
             backgroundColor: "rgba(2, 30, 31, 0.5)", // cor do container de fundo
             height: "20%",
             width: "90%",
-            marginTop: "15%",
+            marginTop: "10%",
             borderRadius: 15,
             overflow: "hidden",
           }}
@@ -84,21 +82,11 @@ const HomePage = () => {
           <View style={styles.containerProgresso}>
             <Text style={styles.textoProgressoCurso}>Progresso do curso</Text>
           </View>
-
-          <View style={{alignItems: 'center', top: 50}}>
-          <Progress.Bar progress={0.7} width={350} height={30}
-          color="#CA7745" 
-          unfilledColor="#021E1F"/>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row', width: 350, top: 5}}>
-          <Ionicons name="flag" size={22} color="white" />          
-          <Ionicons name="trophy" size={22} color="white" />          
-          </View>
-          </View>
         </View>
 
         {/* chamando o modulo */}
 
-        <ModulosCurso tituloModulo= " Módulo 1" nomeCurso="Introdução a Cibersegurança">
+        <ModulosCurso tituloModulo= " Modulo 1" nomeCurso="Introdução a Cibersegurança">
           <BotaoContinuar></BotaoContinuar>
         </ModulosCurso>
 
@@ -123,12 +111,13 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#021E1F",
     width: "90%",
-    height: 80,
-    marginTop: "15%",
+    height: 90,
+    marginTop: "10%",
     borderRadius: 15,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around",
+    padding: 15,
   },
   Textheader: {
     color: "#FFFFFF",
@@ -146,14 +135,14 @@ const styles = StyleSheet.create({
   },
   containerProgresso: {
     backgroundColor: "#CA7745",
-    height: "25%",
+    height: "30%",
     alignItems: "center",
     justifyContent: "center",
   },
   textoProgressoCurso: {
     color: "#000000",
     fontWeight: '700',
-    fontSize: 26,
+    fontSize: 28,
   },
  
  
@@ -163,12 +152,12 @@ const HomePageTabBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#CA7745",
-        tabBarInactiveTintColor: "#333333", 
+        tabBarActiveTintColor: "#000000",
+        tabBarInactiveTintColor: "#333333",
         tabBarShowLabel: true,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: "#000000", 
+          backgroundColor: "#CA7745",
           borderTopWidth: 0,
           bottom: "5%",
           left: 14,
@@ -176,10 +165,10 @@ const HomePageTabBar = () => {
           elevation: 0,
           borderRadius: 15,
           height: 80,
-          paddingBottom: 6 
         },
         tabBarLabelStyle: {
-          fontSize: 20,
+          fontSize: 22,
+          paddingTop: 2,
         }
       }}
     >
@@ -190,40 +179,40 @@ const HomePageTabBar = () => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="home" size={32} color={color} />;
+              <Ionicons name="home" size={40} color={color} />;
             }
-            return <Ionicons name="home-outline" size={32} color={color} />;
+            return <Ionicons name="home-outline" size={40} color={color} />;
           },
         }}
       />
       <Tab.Screen
-        name="Módulos"
+        name="Modulos"
         component={Modulos}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="file-tray-stacked-sarp" size={32} color={color} />;
+              <Ionicons name="file-tray-stacked-sarp" size={40} color={color} />;
             }
             return (
               <Ionicons
-                name="file-tray-stacked-outline" size={32} color={color}
+                name="file-tray-stacked-outline" size={40} color={color}
               />
             );
           },
         }}
       />
       <Tab.Screen
-        name="Certificados"
-        component={Certificados}
+        name="Quiz"
+        component={Quiz}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <MaterialCommunityIcons name="certificate-outline" size={32}  color={color}/>;
+              <MaterialCommunityIcons name="text-box-check" size={40}  color={color}/>;
             }
             return (
-              <MaterialCommunityIcons name="certificate-outline" size={32}  color={color} />
+              <MaterialCommunityIcons name="text-box-check-outline" size={40}  color={color} />
             );
           },
         }}
@@ -235,10 +224,10 @@ const HomePageTabBar = () => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              <Ionicons name="person-circle" size={32} color={color} />;
+              <Ionicons name="person-circle" size={40} color={color} />;
             }
             return (
-              <Ionicons name="person-circle-outline" size={32} color={color} />
+              <Ionicons name="person-circle-outline" size={40} color={color} />
             );
           },
         }}
