@@ -17,15 +17,18 @@ const Perfil = ()=>{
      const [novoNome, setNovoNome] = useState("")
 
      useEffect(() => {
-      fetchNomeUsuario();
+      fetchDadosUsuario();
      }, [])
 
-     const fetchNomeUsuario = async () => {
+     const fetchDadosUsuario = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
       const userName = await AsyncStorage.getItem(`userName_${userToken}`);
+      const userPhoto = await AsyncStorage.getItem(`userPhoto_${userToken}`);
       
       if(userName) {
         setNomeUsuario(userName);
+      } if (userPhoto) {
+        setImage(userPhoto);
       }
      }
 
@@ -63,11 +66,21 @@ const Perfil = ()=>{
   
         if(!resultado.canceled){
           console.log(resultado.assets[0].uri)
-          setImage(resultado.assets[0].uri)
+          salvarFotoPerfil(resultado.assets[0].uri)
         } else {
         console.log("Permissão negada ou não aceita");
         return;
       }
+    }
+  };
+
+  const salvarFotoPerfil = async (foto) => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      await AsyncStorage.setItem(`userPhoto_${userToken}`, foto);
+      setImage(foto);
+    } catch (error) {
+      Alert.alert('Erro ao salvar foto de perfil:', error.message);
     }
   };
 

@@ -21,11 +21,12 @@ const HomePage = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [nomeUsuario, setNomeUsuario] = useState('');
+  const [fotoPerfil, setFotoPerfil] = useState('');
 
   useEffect(() => {
     checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
     const unsubscribe = navigation.addListener('focus', () => {
-      fetchNomeUsuario();
+      fetchDadosUsuario();
     })
 
     return unsubscribe
@@ -37,15 +38,18 @@ const HomePage = () => {
     if (!userToken) {
       navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
     } else {
-      fetchNomeUsuario();
+      fetchDadosUsuario();
     }
   };
 
-  const fetchNomeUsuario = async () => {
+  const fetchDadosUsuario = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     const name = await AsyncStorage.getItem(`userName_${userToken}`);
+    const photo = await AsyncStorage.getItem(`userPhoto_${userToken}`);
     if (name) {
       setNomeUsuario(name);
+    } if (photo) {
+      setFotoPerfil(photo);
     }
   };
 
@@ -66,7 +70,7 @@ const HomePage = () => {
         <View style={styles.header}>
         <Text style={styles.Textheader}>Seja bem vindo(a), {truncateName(nomeUsuario, 10)}</Text>
         <Image
-            source={require("../assets/fotoDePerfil.png")}
+            source={fotoPerfil ? { uri: fotoPerfil } : require('../assets/fotoDePerfil.png')}
             style={styles.fotoPerfil}
           />
         </View>
@@ -143,6 +147,9 @@ const styles = StyleSheet.create({
   fotoPerfil: {
     height: 60,
     width: 60,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: '#fff'
   },
   containerProgresso: {
     backgroundColor: "#CA7745",
