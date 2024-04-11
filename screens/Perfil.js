@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Image, ImageBackground, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import IndicadoTela from "../components/indicadorTela/IndicadorTela";
 import BotaoCertificado from "../components/botaoCertificado/BotaoCertificado";
 import BotaoSair from "../components/botaoSair/BotaoSair";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from 'expo-image-picker';
+import { Feather } from '@expo/vector-icons';
+
 
 
 
@@ -14,34 +17,29 @@ const Perfil = ()=>{
      const [novoNome, setNovoNome] = useState("")
 
      useEffect(() => {
-      fetchDadosUsuario();
+      fetchNomeUsuario();
      }, [])
 
-     const fetchDadosUsuario = async () => {
+     const fetchNomeUsuario = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
       const userName = await AsyncStorage.getItem(`userName_${userToken}`);
-      const userPhoto = await AsyncStorage.getItem(`userPhoto_${userToken}`);
       
       if(userName) {
         setNomeUsuario(userName);
       }
-      if(userPhoto) {
-        setImage(userPhoto);
-      }
      }
 
-     const atualizarNome = async () => {
+    const atualizarNome = async () => {
       const userToken = await AsyncStorage.getItem('userToken');
       await AsyncStorage.setItem(`userName_${userToken}`, novoNome);
       setNomeUsuario(novoNome);
-
-    
-      // Após a atualização do nome de usuário, navegue de volta para a HomePage
-      //navigation.navigate('Perfil');
-
-     
-      navigation.navigate('HomePage');
-    }
+      Alert.alert(
+          "Sucesso!",
+          "Nome de usuário atualizado com sucesso!",
+          [{ text: "OK", onPress: () => navigation.navigate('HomePage') }],
+          { cancelable: false }
+      );
+  }
 
     const logout = async () => {
       await AsyncStorage.removeItem('userToken'); //limpa o estado de logado
@@ -65,21 +63,11 @@ const Perfil = ()=>{
   
         if(!resultado.canceled){
           console.log(resultado.assets[0].uri)
-          salvarFotoPerfil(resultado.assets[0].uri)
+          setImage(resultado.assets[0].uri)
         } else {
         console.log("Permissão negada ou não aceita");
         return;
       }
-    }
-  };
-
-  const salvarFotoPerfil = async (foto) => {
-    try {
-      const userToken = await AsyncStorage.getItem('userToken');
-      await AsyncStorage.setItem(`userPhoto_${userToken}`, foto);
-      setImage(foto); //estou atualizando a foto exibida após salvá-la
-    } catch (error) {
-      Alert.alert('Erro ao salvar foto do perfil:', error.message);
     }
   };
 
@@ -93,10 +81,12 @@ const Perfil = ()=>{
 
           <View style={styles.containerPerfil}>
             <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <Image
-                source={require("../assets/fotoDePerfil.png")}
-                style={styles.fotoPerfil}
-              ></Image>
+              <TouchableOpacity onPress={handleImagePicker}>
+                <Image source={{ uri: image }} style={styles.fotoPerfil} />
+                <View style={styles.inconeContainer}>
+                  <Feather name="edit-2" size={15} color="black" />
+                </View>
+              </TouchableOpacity>
               <Text style={styles.nomeUsuario}>{nomeUsuario}</Text>
             </View>
 
@@ -107,7 +97,7 @@ const Perfil = ()=>{
                 marginBottom: 20,
               }}
             >
-              <Text style = {styles.textoInput}>Nome de usuario</Text>
+              <Text style = {styles.textoInput}>Nome de usuário</Text>
               <TextInput
                 style={styles.inputTexto}
                 placeholder="Nome de usuario"
@@ -124,34 +114,23 @@ const Perfil = ()=>{
                   <Text style={styles.nomeBotaoSalvar}>Salvar</Text>
                 </TouchableOpacity>
               </View>
-
             </View>
 
-            
             <View
               style={{
-                flexDirection: "column"
+                flexDirection: "column",
               }}
             >
-              <Text style = {styles.textoInput}>Meus certificados</Text>
-              
+              <Text style={styles.textoInput}>Meus certificados</Text>
+
               {/* chamando o botao dos certificados */}
-             <BotaoCertificado>
+              <BotaoCertificado></BotaoCertificado>
 
-             </BotaoCertificado>
+              {/* chamando o botao de Sair */}
 
-             {/* chamando o botao de Sair */}
-
-             <BotaoSair onPress={logout}
-             
-             >
-
-             </BotaoSair>
-
+              <BotaoSair onPress={logout}></BotaoSair>
             </View>
-
           </View>
-            
         </ImageBackground>
       </SafeAreaView>
     );
@@ -168,9 +147,9 @@ const styles = StyleSheet.create({
   },
   containerPerfil: {
     backgroundColor: "rgba(2, 30, 31, 0.5)",
-    height: "70%",
+    height: "60%",
     width: "90%",
-    marginTop: "5%",
+    marginTop: "10%",
     borderRadius: 25,
     overflow: "hidden",
     alignItems: "center",
@@ -181,11 +160,19 @@ const styles = StyleSheet.create({
     width: 100,
     marginTop: 30,
     marginBottom: 15,
+    borderRadius: 50
+  },
+  inconeContainer:{
+    position: 'absolute',
+    bottom: 15,
+    right: 5,
+    backgroundColor: '#F4F3F3',
+    borderRadius: 50,
+    padding:5
   },
   nomeUsuario: {
     color: "#FFFFFF",
     fontSize: 22,
-    // fontWeight: "500",
   },
   inputTexto: {
     backgroundColor: "#CA7745",
@@ -194,8 +181,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     borderRadius: 20,
     padding: 10,
-    // justifyContent: "center",
-    // alignItems:  "center",
+
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 18
@@ -208,7 +194,7 @@ const styles = StyleSheet.create({
   botaoSalvar: {
     height: 40,
     width: 100,
-    backgroundColor: "#CA7745",
+    backgroundColor: "#021E1F",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -216,13 +202,11 @@ const styles = StyleSheet.create({
   },
   nomeBotaoSalvar:{
     fontSize: 20,
-    color: "#000000",
-    // fontWeight: "500"
+    color: "#CA7745",
   },
   textoInput:{
     color: "#FFFFFF",
     fontSize: 22, 
-    // fontWeight: 400,
     marginLeft: 10
   },
  
