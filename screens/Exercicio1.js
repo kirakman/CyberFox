@@ -1,7 +1,7 @@
 // Exercicio1.js
 
 import React, { useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
 import TituloExercicio from '../components/TituloExercicio';
 import TituloAula from '../components/TituloAula';
@@ -75,6 +75,7 @@ const Exercicio1 = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar backgroundColor="#67311C" />
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
                     <View style={{alignItems: 'center'}}>
@@ -104,7 +105,7 @@ const Exercicio1 = () => {
                                 </TouchableOpacity>
                             </View>
                         </Modal>
-                        <View style={{ flex: 1, alignItems: 'flex-start', top: '100%', gap: 15}}>
+                        <View style={{ flex: 1, alignItems: 'flex-start', top: '50%', gap: 15}}>
 
                             {/* Primeira pergunta */}
                             <View>
