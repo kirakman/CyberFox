@@ -1,12 +1,11 @@
-// Exercicio1.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
 import TituloExercicio from '../components/TituloExercicio';
 import TituloAula from '../components/TituloAula';
 import TituloQuiz from '../components/TituloQuiz';
 import { Picker } from '@react-native-picker/picker';
+import { getDatabase, ref, onValue, off } from "firebase/database";
 
 const Exercicio1 = () => {
     const [isModalVisible1, setModalVisible1] = useState(true); 
@@ -14,61 +13,52 @@ const Exercicio1 = () => {
     const [isModalVisible3, setModalVisible3] = useState(false); 
     const [isModalVisible4, setModalVisible4] = useState(false); 
     const [isModalVisible5, setModalVisible5] = useState(false); 
-
-    const toggleModal1 = () => {
-        setModalVisible1(!isModalVisible1);
-    };
-
-    const toggleModal2 = () => {
-        setModalVisible2(!isModalVisible2);
-    };
-
-    const closeModal2 = () => {
-        setModalVisible2(!isModalVisible2);
-    };
-    const toggleModal3 = () => {
-        setModalVisible3(!isModalVisible3);
-    };
-
-    const closeModal3 = () => {
-        setModalVisible3(!isModalVisible3);
-    };
-    const toggleModal4 = () => {
-        setModalVisible4(!isModalVisible4);
-    };
-
-    const closeModal4 = () => {
-        setModalVisible4(!isModalVisible4);
-    };
-    const toggleModal5 = () => {
-        setModalVisible5(!isModalVisible5);
-    };
-
-    const closeModal5 = () => {
-        setModalVisible5(!isModalVisible5);
-    };
-
     const [selectedOption1, setSelectedOption1] = useState(null);
+    const [modulo, setModulo] = useState(null);
+
+    const toggleModal1 = () => setModalVisible1(!isModalVisible1);
+    const toggleModal2 = () => setModalVisible2(!isModalVisible2);
+    const closeModal2 = () => setModalVisible2(!isModalVisible2);
+    const toggleModal3 = () => setModalVisible3(!isModalVisible3);
+    const closeModal3 = () => setModalVisible3(!isModalVisible3);
+    const toggleModal4 = () => setModalVisible4(!isModalVisible4);
+    const closeModal4 = () => setModalVisible4(!isModalVisible4);
+    const toggleModal5 = () => setModalVisible5(!isModalVisible5);
+    const closeModal5 = () => setModalVisible5(!isModalVisible5);
+
+    useEffect(() => {
+        const db = getDatabase();
+        const moduloRef = ref(db, 'modulo01');
+
+        const handleData = (snapshot) => {
+            const moduloData = snapshot.val();
+            //console.log('Modulo:', moduloData)
+            setModulo(moduloData);
+            //console.log('Modulo:', modulo);
+            //console.log('Parágrafos:', modulo && modulo.textoModulo);
+        };
+
+        onValue(moduloRef, handleData);
+
+        // Cleanup
+        return () => {
+            off(moduloRef, handleData);
+        };
+    }, []);
 
     const handleSubmit = () => {
         if (selectedOption1 === "option1") {
             Alert.alert(
                 "Parabéns!",
                 "Você acertou!",
-            [
-                {
-                    text: "OK",
-                    onPress: () => {
-                        closeModal2();
-                    }
-                }
-            ]
-        );
+                [
+                    { text: "OK", onPress: closeModal2 }
+                ]
+            );
         } else {
             Alert.alert(
                 "Opção incorreta",
                 "Por favor, tente novamente."
-             
             );
         }
     };
@@ -79,30 +69,23 @@ const Exercicio1 = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
                     <View style={{alignItems: 'center'}}>
-                        <TituloExercicio nomeExercicio="Módulo 1: Introdução a Cibersegurança" style={{alignItems: 'center'}} onPress={toggleModal1}/>
+                        <TituloExercicio nomeExercicio={modulo ? modulo.textoModulo.titulo : "Carregando..."} onPress={toggleModal1} />
                         <Modal isVisible={isModalVisible1}>
-                            <View style={{ flex: 1,  backgroundColor: '#67311C', borderColor: 'white', borderRadius: 15, alignItems: 'center'}}>
-                                <ScrollView style={{ width: '90%' }}>
-                                    <TituloAula nomeAula="O que é Phishing?"/>
-                                    <Text style={styles.paragraph}>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam varius eros eget enim aliquet, ac hendrerit orci volutpat. Sed convallis velit nec libero vestibulum, sit amet feugiat lacus vulputate. Fusce a magna eros. Proin nec consectetur sapien. Duis vel diam eget ex convallis vulputate. Cras congue mi eu libero ultricies, ut cursus odio vehicula. Integer condimentum eleifend malesuada. Sed placerat mi a odio malesuada, et convallis velit bibendum. Duis nec ligula in odio ultrices fringilla. Curabitur ac felis nec nulla posuere consequat. Pellentesque in arcu nunc.
-                                    </Text>
-                                    <TituloAula nomeAula="Onde é aplicado o Phishing?"/>
-                                    <Text style={styles.paragraph}>
-                                        Morbi non est in justo dapibus tempor. Mauris vel tortor sed leo accumsan convallis vel a elit. Aliquam id magna libero. Vestibulum finibus ligula a felis lacinia, ut accumsan leo vehicula. Nullam finibus tempus erat, sit amet mattis ex blandit id. Donec non tempor libero. Pellentesque non magna vitae ligula dapibus lacinia. Nullam ac eros odio. Maecenas laoreet odio quis eleifend efficitur. Phasellus vitae est a nisi malesuada blandit. Nulla facilisi.
-                                    </Text>
-                                    <TituloAula nomeAula="Como identificar o Phishing via E-mail?"/>
-                                    <Text style={styles.paragraph}>
-                                        Praesent id odio vel felis commodo eleifend nec eget lorem. Nam fermentum purus sed vehicula volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam suscipit velit ut justo fermentum, ac vestibulum neque sodales. Ut commodo arcu id posuere convallis. Proin vel elit faucibus, pharetra lorem sit amet, placerat libero. Aenean ut accumsan leo, non pharetra magna. Nam rhoncus rhoncus vestibulum. Nulla sit amet tortor nisi. Sed consectetur, ante sed ultrices fringilla, quam odio varius lorem, sed luctus orci magna nec nisi. Etiam rutrum enim nec orci fermentum, id bibendum lacus pharetra. Sed ac efficitur velit, sit amet fringilla justo.
-                                    </Text>
-                                    <TituloAula nomeAula="Evitando o Phishing..."/>
-                                    <Text style={styles.paragraph}>
-                                        Duis at congue felis. Praesent sagittis tristique nulla nec lacinia. Vivamus suscipit auctor massa, id fringilla orci posuere in. Fusce vulputate mi ut diam pharetra, id bibendum ex dictum. Curabitur sed nisl sit amet nunc tempus tempor a ac neque. Integer at leo sed magna faucibus commodo. Curabitur euismod enim eget ex pretium, et dictum ipsum aliquet. Phasellus nec vestibulum elit. Nulla luctus vehicula augue, ac tempor lorem pharetra a. Vivamus dictum, dolor vel ullamcorper volutpat, odio ligula auctor velit, nec gravida ipsum quam ut libero. Vivamus condimentum nunc nec mauris fringilla, in volutpat metus tristique. Sed ullamcorper, mauris a varius mattis, urna purus laoreet dolor, eu laoreet elit ante at sem. Donec venenatis, lorem nec interdum tincidunt, metus arcu sollicitudin libero, et bibendum eros libero a justo. In hac habitasse platea dictumst. Ut efficitur scelerisque magna, nec dictum sapien consequat in. Sed hendrerit malesuada turpis, at tincidunt nisl elementum a. Sed sed eros nec libero placerat convallis.
-                                    </Text>
-                                </ScrollView>
+                        <View style={{ flex: 1,  backgroundColor: '#67311C', borderColor: 'white', borderRadius: 15, alignItems: 'center'}}>
+                            <View style={styles.modalContainer}>
+                            <ScrollView style={{ width: '90%' }}>
+                                {modulo && Object.keys(modulo.textoModulo.txt).map((key, index) => {
+                                    if (key.startsWith('paragrafo')) {
+                                        return <Text style={styles.paragraph} key={index}>{modulo.textoModulo.txt[key]}</Text>;
+                                }
+                                    return null;
+                                })}
+                            </ScrollView>
+
                                 <TouchableOpacity onPress={toggleModal1} style={styles.closeButton}>
-                                    <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                                 </TouchableOpacity>
+                            </View>
                             </View>
                         </Modal>
                         <View style={{ flex: 1, alignItems: 'flex-start', top: '50%', gap: 15}}>
