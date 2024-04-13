@@ -1,67 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ImageBackground, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import IndicadoTela from "../components/indicadorTela/IndicadorTela";
-
-// ficar atentento que pode aparecer erro nessa importacao 
+import IndicadorTela from "../components/indicadorTela/IndicadorTela";
 import ModulosCurso from "../components/modulosCurso/ModulosCurso";
 import IniciarCurso from "../components/botaoInicarCurso/InicarCurso";
-
+import { getDatabase, ref, onValue, off } from "firebase/database";
 import { useNavigation } from '@react-navigation/native';
 
-
-
-
 const Modulos = () => {
-
+  const [modulos, setModulos] = useState([]);
   const navigation = useNavigation();
 
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground
-          source={require("../assets/BackgroundHomePage.png")}
-          style={styles.backgroundImage}
-        >
-          <IndicadoTela nomeTela="Módulos"></IndicadoTela>
+  useEffect(() => {
+    // Referência para o banco de dados Firebase Realtime
+    const db = getDatabase();
+    const modulosRef = ref(db);
 
-          <ScrollView style={{ flex: 1}}>
+    // Captura de dados
+    onValue(modulosRef, (snapshot) => {
+      const data = snapshot.val();
+      //console.log("Dados do Firebase:", data); // Adicionando um console.log() para verificar os dados recuperados
+      if (data) {
+        const modulosArray = Object.keys(data).map((key) => ({
+          id: key,
+          nomeModulo: key,
+          nomeCurso: data[key]?.textoModulo?.titulo, // Usando o campo "titulo" como nome do curso
+        }));
+        //console.log("Modulos Array:", modulosArray); // Adicionando um console.log() para verificar o array de módulos
+        setModulos(modulosArray);
+      }
+    });
 
-            <ModulosCurso tituloModulo="Módulo 1" nomeCurso="Introdução a Cibersegurança">
-              <IniciarCurso icon="unlock" onPress={() => navigation.navigate("Exercicio1")}></IniciarCurso> 
-            </ModulosCurso>
+    // Cleanup
+    return () => {
+      // Desinscrever do snapshot listener quando o componente for desmontado
+      off(modulosRef);
+    };
+  }, []); // Este useEffect será executado apenas uma vez, quando o componente for montado
 
-            <ModulosCurso tituloModulo="Módulo 2" nomeCurso="Tipos de ataques">
-              <IniciarCurso icon="lock"></IniciarCurso>
-            </ModulosCurso>
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("../assets/BackgroundHomePage.png")}
+        style={styles.backgroundImage}
+      >
+        <ScrollView style={{ flex: 1 }}>
+          <IndicadorTela nomeTela="Modulos"></IndicadorTela>
 
-            <ModulosCurso tituloModulo="Módulo 3" nomeCurso="Decidir módulos">
-              <IniciarCurso icon="lock"></IniciarCurso>
+          {modulos.map((modulo) => (
+            <ModulosCurso
+              key={modulo.id}
+              tituloModulo={modulo.nomeModulo}
+              nomeCurso={modulo.nomeCurso}
+            >
+              <IniciarCurso icon="unlock" onPress={()=>navigation.navigate('Exercicio1')}></IniciarCurso>
             </ModulosCurso>
-            <ModulosCurso tituloModulo="Módulo 4" nomeCurso="Decidir módulos">
-              <IniciarCurso icon="lock"></IniciarCurso>
-            </ModulosCurso>
-            <ModulosCurso tituloModulo="Módulo 5" nomeCurso="Decidir módulos">
-              <IniciarCurso icon="lock"></IniciarCurso>
-            </ModulosCurso>
-            <ModulosCurso tituloModulo="Módulo 6" nomeCurso="Decidir módulos">
-              <IniciarCurso icon="lock"></IniciarCurso>
-            </ModulosCurso>
-          </ScrollView>
-        </ImageBackground>
-      </SafeAreaView>
-    );
+          ))}
+        </ScrollView>
+      </ImageBackground>
+    </SafeAreaView>
+  );
 };
 
-    const styles = StyleSheet.create({
-        backgroundImage: {
-            flex:1,
-            width: "100%",
-            height: "100%",
-            resizeMode: "cover",
-            flexDirection: "column",
-            alignItems: "center",
-          },
-    })
- 
-
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+});
 
 export default Modulos;
