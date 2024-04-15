@@ -18,14 +18,12 @@ const Modulos = () => {
     // Captura de dados
     onValue(modulosRef, (snapshot) => {
       const data = snapshot.val();
-      //console.log("Dados do Firebase:", data); // Adicionando um console.log() para verificar os dados recuperados
       if (data) {
         const modulosArray = Object.keys(data).map((key) => ({
           id: key,
           nomeModulo: key,
-          nomeCurso: data[key]?.textoModulo?.titulo, // Usando o campo "titulo" como nome do curso
+          nomeCurso: data[key].topico01.titulo // Usando o título do topico01 como nome do curso
         }));
-        //console.log("Modulos Array:", modulosArray); // Adicionando um console.log() para verificar o array de módulos
         setModulos(modulosArray);
       }
     });

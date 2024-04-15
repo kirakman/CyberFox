@@ -71,14 +71,20 @@ const Exercicio1 = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
                     <View style={{ alignItems: 'center' }}>
-                        <TituloExercicio nomeExercicio={modulo ? modulo.textoModulo.titulo : "Carregando..."} onPress={() => toggleModal(1)} />
+                        <TituloExercicio nomeExercicio={modulo ? modulo.topico01.titulo : "Carregando..."} onPress={() => toggleModal(1)} />
                         <Modal isVisible={modalsVisibility.isModalVisible1}>
                             <View style={{ flex: 1, backgroundColor: '#67311C', borderColor: 'white', borderRadius: 15, alignItems: 'center' }}>
                                 <View style={styles.modalContainer}>
                                     <ScrollView style={{ width: '90%' }}>
-                                        {modulo && Object.keys(modulo.textoModulo.txt).map((key, index) => {
-                                            if (key.startsWith('paragrafo')) {
-                                                return <Text style={styles.paragraph} key={index}>{modulo.textoModulo.txt[key]}</Text>;
+                                        {modulo && Object.keys(modulo).map((key, index) => {
+                                            if (key.startsWith('topico')) {
+                                                const topico = modulo[key];
+                                                return (
+                                                    <View key={index}>
+                                                        <TituloAula nomeAula={topico.titulo} />
+                                                        <Text style={styles.paragraph}>{topico.txt}</Text>
+                                                    </View>
+                                                );
                                             }
                                             return null;
                                         })}
