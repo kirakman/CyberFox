@@ -10,20 +10,7 @@ import { getDatabase, ref, onValue, off } from "firebase/database";
 const Exercicio1 = () => {
     const [modulo, setModulo] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
-    const [modalsVisibility, setModalsVisibility] = useState({
-        isModalVisible1: true,
-        isModalVisible2: false,
-        isModalVisible3: false,
-        isModalVisible4: false,
-        isModalVisible5: false,
-    });
-
-    const toggleModal = (modalNumber) => {
-        setModalsVisibility(prevState => ({
-            ...prevState,
-            [`isModalVisible${modalNumber}`]: !prevState[`isModalVisible${modalNumber}`]
-        }));
-    };
+    const [currentModal, setCurrentModal] = useState(null);
 
     useEffect(() => {
         const db = getDatabase();
@@ -49,7 +36,7 @@ const Exercicio1 = () => {
                 "Parabéns!",
                 "Você acertou!",
                 [
-                    { text: "OK", onPress: () => closeModal(selectedQuestionIndex + 1) }
+                    { text: "OK", onPress: () => setCurrentModal(null) }
                 ]
             );
         } else {
@@ -60,8 +47,8 @@ const Exercicio1 = () => {
         }
     };
 
-    const closeModal = (questionIndex) => {
-        toggleModal(questionIndex);
+    const closeModal = () => {
+        setCurrentModal(null);
         setSelectedOption(null);
     };
 
@@ -71,8 +58,8 @@ const Exercicio1 = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
                     <View style={{ alignItems: 'center' }}>
-                        <TituloExercicio nomeExercicio={modulo ? modulo.topico01.titulo : "Carregando..."} onPress={() => toggleModal(1)} />
-                        <Modal isVisible={modalsVisibility.isModalVisible1}>
+                        <TituloExercicio nomeExercicio={modulo ? modulo.topico01.titulo : "Carregando..."} onPress={() => setCurrentModal(1)} />
+                        <Modal isVisible={currentModal === 1}>
                             <View style={{ flex: 1, backgroundColor: '#67311C', borderColor: 'white', borderRadius: 15, alignItems: 'center' }}>
                                 <View style={styles.modalContainer}>
                                     <ScrollView style={{ width: '90%' }}>
@@ -104,8 +91,8 @@ const Exercicio1 = () => {
                                     const question = modulo[key];
                                     return (
                                         <View key={index}>
-                                            <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => toggleModal(questionIndex + 2)} />
-                                            <Modal isVisible={modalsVisibility[`isModalVisible${questionIndex + 2}`]}>
+                                            <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => setCurrentModal(questionIndex + 2)} />
+                                            <Modal isVisible={currentModal === questionIndex + 2}>
                                                 <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15 }}>
                                                     <TituloAula nomeAula={question.enunciadoQuestao} />
                                                     <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
@@ -126,7 +113,7 @@ const Exercicio1 = () => {
                                                     <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit(questionIndex)}>
                                                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => closeModal(questionIndex + 2)} style={styles.closeButton}>
+                                                    <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                                                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                                                     </TouchableOpacity>
                                                 </View>
@@ -158,7 +145,6 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     closeButton: {
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
