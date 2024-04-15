@@ -76,7 +76,7 @@ const Exercicio1 = () => {
                                             return null;
                                         })}
                                     </ScrollView>
-                                    <TouchableOpacity onPress={() => toggleModal(1)} style={styles.closeButton}>
+                                    <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                                     </TouchableOpacity>
                                 </View>
