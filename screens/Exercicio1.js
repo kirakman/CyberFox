@@ -11,6 +11,7 @@ const Exercicio1 = () => {
     const [modulo, setModulo] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [currentModal, setCurrentModal] = useState(null);
+    const [shuffledOptions, setShuffledOptions] = useState(null);
 
     useEffect(() => {
         const db = getDatabase();
@@ -23,11 +24,29 @@ const Exercicio1 = () => {
 
         onValue(moduloRef, handleData);
 
-        // Cleanup
+        
         return () => {
             off(moduloRef, handleData);
         };
     }, []);
+
+    useEffect(() => {
+        if (currentModal !== null) {
+            shuffleOptions();
+        }
+    }, [currentModal]);
+
+    const shuffleOptions = () => {
+        const question = modulo[`pergunta0${currentModal - 1}`];
+        const options = [
+            question.respostaCerta,
+            question.respostaErrada01,
+            question.respostaErrada02,
+            question.respostaErrada03
+        ];
+        const shuffled = options.sort(() => Math.random() - 0.5);
+        setShuffledOptions(shuffled);
+    };
 
     const handleSubmit = (selectedQuestionIndex) => {
         const question = modulo[`pergunta0${selectedQuestionIndex + 1}`];
@@ -50,6 +69,7 @@ const Exercicio1 = () => {
     const closeModal = () => {
         setCurrentModal(null);
         setSelectedOption(null);
+        setShuffledOptions(null);
     };
 
     return (
@@ -97,18 +117,18 @@ const Exercicio1 = () => {
                                                     <TituloAula nomeAula={question.enunciadoQuestao} />
                                                     <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
                                                     <View style={styles.definicoes}>
-                                                        <Text style={{ fontSize: 18 }}>{`A: ${question.respostaCerta}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`B: ${question.respostaErrada01}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`C: ${question.respostaErrada02}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`D: ${question.respostaErrada03}`}</Text>
+                                                        <Text style={{ fontSize: 18 }}>{`A: ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
+                                                        <Text style={{ fontSize: 18 }}>{`B: ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
+                                                        <Text style={{ fontSize: 18 }}>{`C: ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
+                                                        <Text style={{ fontSize: 18 }}>{`D: ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
                                                     </View>
                                                     <Picker
                                                         selectedValue={selectedOption}
                                                         onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
-                                                        <Picker.Item label="Opção A" value={question.respostaCerta} />
-                                                        <Picker.Item label="Opção B" value={question.respostaErrada01} />
-                                                        <Picker.Item label="Opção C" value={question.respostaErrada02} />
-                                                        <Picker.Item label="Opção D" value={question.respostaErrada03} />
+                                                        <Picker.Item label="Opção A" value={shuffledOptions ? shuffledOptions[0] : ''} />
+                                                        <Picker.Item label="Opção B" value={shuffledOptions ? shuffledOptions[1] : ''} />
+                                                        <Picker.Item label="Opção C" value={shuffledOptions ? shuffledOptions[2] : ''} />
+                                                        <Picker.Item label="Opção D" value={shuffledOptions ? shuffledOptions[3] : ''} />
                                                     </Picker>
                                                     <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit(questionIndex)}>
                                                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
