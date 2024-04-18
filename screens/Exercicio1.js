@@ -24,14 +24,18 @@ const Exercicio1 = () => {
 
         onValue(moduloRef, handleData);
 
-        
+        // Cleanup
         return () => {
             off(moduloRef, handleData);
         };
     }, []);
 
     useEffect(() => {
-        if (currentModal !== null) {
+        setCurrentModal(1); // Define o estado currentModal como 1 ao montar o componente
+    }, []);
+
+    useEffect(() => {
+        if (currentModal && currentModal > 1) {
             shuffleOptions();
         }
     }, [currentModal]);
@@ -69,7 +73,7 @@ const Exercicio1 = () => {
     const closeModal = () => {
         setCurrentModal(null);
         setSelectedOption(null);
-        setShuffledOptions(null);
+        setShuffledOptions(null); // Limpa as alternativas embaralhadas ao fechar o modal
     };
 
     return (
