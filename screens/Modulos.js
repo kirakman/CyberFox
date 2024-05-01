@@ -11,29 +11,34 @@ const Modulos = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Referência para o banco de dados Firebase Realtime
-    const db = getDatabase();
-    const modulosRef = ref(db);
+    const fetchModulos = async () => {
+      try {
+        const db = getDatabase();
+        const modulosRef = ref(db, 'modulos-geral');
 
-    // Captura de dados
-    onValue(modulosRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const modulosArray = Object.keys(data).map((key) => ({
-          id: key,
-          nomeModulo: key,
-          nomeCurso: data[key].topico01.titulo // Usando o título do topico01 como nome do curso
-        }));
-        setModulos(modulosArray);
+        onValue(modulosRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            const modulosArray = Object.entries(data).map(([moduloId, moduloData]) => ({
+              id: moduloId,
+              nomeModulo: moduloId,
+              nomeCurso: moduloData.topico01.titulo
+            }));
+            setModulos(modulosArray);
+          }
+        });
+      } catch (error) {
+        console.error("Erro ao buscar os módulos:", error);
       }
-    });
+    };
+
+    fetchModulos();
 
     // Cleanup
     return () => {
-      // Desinscrever do snapshot listener quando o componente for desmontado
       off(modulosRef);
     };
-  }, []); // Este useEffect será executado apenas uma vez, quando o componente for montado
+  }, []); 
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -50,7 +55,7 @@ const Modulos = () => {
               tituloModulo={modulo.nomeModulo}
               nomeCurso={modulo.nomeCurso}
             >
-              <IniciarCurso icon="unlock" onPress={()=>navigation.navigate('Exercicio1')}></IniciarCurso>
+              <IniciarCurso icon="unlock" onPress={() => navigation.navigate('Exercicio1')}></IniciarCurso>
             </ModulosCurso>
           ))}
         </ScrollView>
