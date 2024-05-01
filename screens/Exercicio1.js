@@ -1,3 +1,5 @@
+// Exercicio1.js
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
@@ -7,28 +9,36 @@ import TituloQuiz from '../components/TituloQuiz';
 import { Picker } from '@react-native-picker/picker';
 import { getDatabase, ref, onValue, off } from "firebase/database";
 
-const Exercicio1 = () => {
+const Exercicio1 = ({ route }) => { // Receba o parâmetro route
+    const { moduleName } = route.params; // Extraia o nome do módulo do parâmetro
+
     const [modulo, setModulo] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [currentModal, setCurrentModal] = useState(null);
     const [shuffledOptions, setShuffledOptions] = useState(null);
 
     useEffect(() => {
-        const db = getDatabase();
-        const moduloRef = ref(db, 'modulo01');
+        const fetchModulo = async () => {
+            try {
+                const db = getDatabase();
+                const moduloRef = ref(db, `modulos-geral/${moduleName}`); // Use o nome do módulo recebido como parâmetro
 
-        const handleData = (snapshot) => {
-            const moduloData = snapshot.val();
-            setModulo(moduloData);
+                onValue(moduloRef, (snapshot) => {
+                    const moduloData = snapshot.val();
+                    setModulo(moduloData);
+                });
+
+                // Cleanup
+                return () => {
+                    off(moduloRef);
+                };
+            } catch (error) {
+                console.error("Erro ao buscar o módulo:", error);
+            }
         };
 
-        onValue(moduloRef, handleData);
-
-        // Cleanup
-        return () => {
-            off(moduloRef, handleData);
-        };
-    }, []);
+        fetchModulo();
+    }, [moduleName]); // Adicione moduleName como dependência para re-fazer a busca quando ele mudar
 
     useEffect(() => {
         setCurrentModal(1); // Define o estado currentModal como 1 ao montar o componente

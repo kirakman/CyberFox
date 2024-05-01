@@ -9,12 +9,13 @@ import { useNavigation } from '@react-navigation/native';
 const Modulos = () => {
   const [modulos, setModulos] = useState([]);
   const navigation = useNavigation();
+  let modulosRef; // Definindo a variável no escopo externo
 
   useEffect(() => {
     const fetchModulos = async () => {
       try {
         const db = getDatabase();
-        const modulosRef = ref(db, 'modulos-geral');
+        modulosRef = ref(db, 'modulos-geral'); // Definindo a variável aqui
 
         onValue(modulosRef, (snapshot) => {
           const data = snapshot.val();
@@ -36,9 +37,14 @@ const Modulos = () => {
 
     // Cleanup
     return () => {
-      off(modulosRef);
+      off(modulosRef); // Agora a variável está acessível aqui
     };
   }, []); 
+
+  // Função para navegar para a tela de exercícios com o nome do módulo como parâmetro
+  const handleStartModule = (moduleName) => {
+    navigation.navigate('Exercicio1', { moduleName });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -49,13 +55,15 @@ const Modulos = () => {
         <ScrollView style={{ flex: 1 }}>
           <IndicadorTela nomeTela="Modulos"></IndicadorTela>
 
+          {/* Renderize os módulos */}
           {modulos.map((modulo) => (
             <ModulosCurso
               key={modulo.id}
               tituloModulo={modulo.nomeModulo}
               nomeCurso={modulo.nomeCurso}
             >
-              <IniciarCurso icon="unlock" onPress={() => navigation.navigate('Exercicio1')}></IniciarCurso>
+              {/* Adicione um botão para iniciar o módulo */}
+              <IniciarCurso icon="unlock" onPress={() => handleStartModule(modulo.nomeModulo)}></IniciarCurso>
             </ModulosCurso>
           ))}
         </ScrollView>
