@@ -14,6 +14,8 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 import * as Progress from 'react-native-progress';
 
+import { getDatabase, ref, get } from "firebase/database";
+
 
 const Tab =  createBottomTabNavigator();
 
@@ -22,16 +24,24 @@ const HomePage = () => {
   const isFocused = useIsFocused();
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [fotoPerfil, setFotoPerfil] = useState('');
+  const [lastModuleId, setLastModuleId] = useState(null);
+  const [cursoNome, setCursoNome] = useState('');
 
   useEffect(() => {
     checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
-    const unsubscribe = navigation.addListener('focus', () => {
+    fetchLastModuleData().then(() => {
       fetchDadosUsuario();
-    })
-
-    return unsubscribe
-
+    });
+  
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchLastModuleData().then(() => {
+        fetchDadosUsuario();
+      });
+    });
+  
+    return unsubscribe;
   }, [isFocused]);
+  
 
   const checkIfLoggedIn = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -60,6 +70,31 @@ const HomePage = () => {
       return name;
     }
   };
+
+  const fetchLastModuleData = async () => {
+    try {
+      const moduleId = await AsyncStorage.getItem('lastModuleId');
+      if (moduleId) {
+        setLastModuleId(moduleId);
+        const db = getDatabase();
+        const moduloRef = ref(db, `modulos-geral/${moduleId}/topico01/titulo`);
+        get(moduloRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            const cursoNome = snapshot.val();
+            setCursoNome(cursoNome);
+          }
+        }).catch((error) => {
+          console.error("Erro ao obter dados do módulo:", error);
+          setCursoNome('Nome do Curso Padrão'); // Defina um valor padrão caso haja erro na obtenção dos dados
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao recuperar o último módulo:', error);
+    }
+  };
+
+  
+  
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -100,11 +135,17 @@ const HomePage = () => {
           </View>
         </View>
 
-        {/* chamando o modulo */}
-
-        <ModulosCurso tituloModulo= " Módulo 1" nomeCurso="Introdução a Cibersegurança">
-          <BotaoContinuar></BotaoContinuar>
-        </ModulosCurso>
+         {/* Renderize o último módulo acessado, se houver */}
+         {lastModuleId && cursoNome && (
+          <ModulosCurso
+            key={lastModuleId}
+            tituloModulo={`${lastModuleId}`}
+            nomeCurso={cursoNome}
+          >
+            {/* Adicione qualquer conteúdo adicional aqui */}
+            <BotaoContinuar onPress={() => navigation.navigate('Exercicio1', { moduleName: cursoNome })}></BotaoContinuar>
+          </ModulosCurso>
+        )}
 
        
             

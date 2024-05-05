@@ -5,6 +5,7 @@ import ModulosCurso from "../components/modulosCurso/ModulosCurso";
 import IniciarCurso from "../components/botaoInicarCurso/InicarCurso";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Modulos = () => {
   const [modulos, setModulos] = useState([]);
@@ -42,9 +43,15 @@ const Modulos = () => {
   }, []); 
 
   // Função para navegar para a tela de exercícios com o nome do módulo como parâmetro
-  const handleStartModule = (moduleName) => {
+const handleStartModule = async (moduleName, moduleId) => {
+  try {
+    await AsyncStorage.setItem('lastModuleId', moduleId);
     navigation.navigate('Exercicio1', { moduleName });
-  };
+  } catch (error) {
+    console.error("Erro ao definir o último módulo:", error);
+  }
+};
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -63,7 +70,7 @@ const Modulos = () => {
               nomeCurso={modulo.nomeCurso}
             >
               {/* Adicione um botão para iniciar o módulo */}
-              <IniciarCurso icon="unlock" onPress={() => handleStartModule(modulo.nomeModulo)}></IniciarCurso>
+              <IniciarCurso icon="unlock" onPress={() => handleStartModule(modulo.nomeModulo, modulo.id)}></IniciarCurso>
             </ModulosCurso>
           ))}
         </ScrollView>
