@@ -26,22 +26,24 @@ const HomePage = () => {
   const [fotoPerfil, setFotoPerfil] = useState('');
   const [lastModuleId, setLastModuleId] = useState(null);
   const [cursoNome, setCursoNome] = useState('');
+  const [progressoCurso, setProgressoCurso] = useState(0); // Estado para o progresso do curso
 
   useEffect(() => {
     checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
     fetchLastModuleData().then(() => {
       fetchDadosUsuario();
+      fetchProgressoCurso(); // Atualiza o progresso do curso ao montar a tela
     });
   
     const unsubscribe = navigation.addListener('focus', () => {
       fetchLastModuleData().then(() => {
         fetchDadosUsuario();
+        fetchProgressoCurso(); // Atualiza o progresso do curso ao focar na tela
       });
     });
   
     return unsubscribe;
   }, [isFocused]);
-  
 
   const checkIfLoggedIn = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -93,8 +95,24 @@ const HomePage = () => {
     }
   };
 
-  
-  
+
+const fetchProgressoCurso = async () => {
+  try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      let acertos = await AsyncStorage.getItem(`${lastModuleId}_acertos`);
+      acertos = acertos ? JSON.parse(acertos) : 0;
+
+      // Quantidade total de exercícios (por exemplo, 5 exercícios)
+      const totalExercicios = 5;
+
+      // Calcular o progresso com base nos acertos
+      const progresso = (acertos / totalExercicios) * 100;
+      setProgressoCurso(progresso);
+  } catch (error) {
+      console.error('Erro ao obter o progresso do curso:', error);
+  }
+};
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -125,7 +143,7 @@ const HomePage = () => {
           </View>
 
           <View style={{alignItems: 'center', top: 50}}>
-          <Progress.Bar progress={0.7} width={350} height={30}
+          <Progress.Bar progress={progressoCurso / 100} width={350} height={30}
           color="#CA7745" 
           unfilledColor="#021E1F"/>
           <View style={{justifyContent: 'space-between', flexDirection: 'row', width: 350, top: 5}}>

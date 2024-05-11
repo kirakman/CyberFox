@@ -66,23 +66,35 @@ const Exercicio1 = () => {
         setShuffledOptions(shuffled);
     };
 
-    const handleSubmit = (selectedQuestionIndex) => {
-        const question = modulo[`pergunta0${selectedQuestionIndex + 1}`];
-        if (selectedOption === question.respostaCerta) {
-            Alert.alert(
-                "Parabéns!",
-                "Você acertou!",
-                [
-                    { text: "OK", onPress: () => setCurrentModal(null) }
-                ]
-            );
-        } else {
-            Alert.alert(
-                "Resposta Incorreta",
-                "Por favor, tente novamente."
-            );
+ 
+
+const handleSubmit = async (selectedQuestionIndex) => {
+    const question = modulo[`pergunta0${selectedQuestionIndex + 1}`];
+    if (selectedOption === question.respostaCerta) {
+        try {
+            const userToken = await AsyncStorage.getItem('userToken');
+            let acertos = await AsyncStorage.getItem(`${moduleName}_acertos`);
+            acertos = acertos ? JSON.parse(acertos) : 0;
+            acertos += 1;
+            await AsyncStorage.setItem(`${moduleName}_acertos`, JSON.stringify(acertos));
+        } catch (error) {
+            console.error('Erro ao armazenar o acerto:', error);
         }
-    };
+        Alert.alert(
+            "Parabéns!",
+            "Você acertou!",
+            [
+                { text: "OK", onPress: () => setCurrentModal(null) }
+            ]
+        );
+    } else {
+        Alert.alert(
+            "Resposta Incorreta",
+            "Por favor, tente novamente."
+        );
+    }
+};
+
 
     const closeModal = () => {
         setCurrentModal(null);
@@ -91,10 +103,10 @@ const Exercicio1 = () => {
     };
 
     const checkIfLoggedIn = async () => {
-      const userToken = await AsyncStorage.getItem('userToken');
-      if (!userToken) {
-        navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
-      }
+        const userToken = await AsyncStorage.getItem('userToken');
+        if (!userToken) {
+            navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
+        }
     };
 
     return (
