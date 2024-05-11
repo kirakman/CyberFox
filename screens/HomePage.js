@@ -96,22 +96,30 @@ const HomePage = () => {
   };
 
 
-const fetchProgressoCurso = async () => {
-  try {
+  const fetchProgressoCurso = async () => {
+    try {
       const userToken = await AsyncStorage.getItem('userToken');
-      let acertos = await AsyncStorage.getItem(`${lastModuleId}_acertos`);
-      acertos = acertos ? JSON.parse(acertos) : 0;
-
-      // Quantidade total de exercícios (por exemplo, 5 exercícios)
-      const totalExercicios = 5;
-
-      // Calcular o progresso com base nos acertos
-      const progresso = (acertos / totalExercicios) * 100;
-      setProgressoCurso(progresso);
-  } catch (error) {
+      const lastModuleId = await AsyncStorage.getItem('lastModuleId');
+  
+      if (lastModuleId) {
+        let acertos = await AsyncStorage.getItem(`${lastModuleId}_acertos`);
+        acertos = acertos ? JSON.parse(acertos) : 0;
+  
+        // Quantidade total de exercícios (por exemplo, 5 exercícios)
+        const totalExercicios = 5;
+  
+        // Calcular o progresso com base nos acertos
+        const progresso = (acertos / totalExercicios) * 100;
+        setProgressoCurso(progresso);
+      } else {
+        // Se não houver módulo acessado anteriormente, defina o progresso como 0
+        setProgressoCurso(0);
+      }
+    } catch (error) {
       console.error('Erro ao obter o progresso do curso:', error);
-  }
-};
+    }
+  };
+  
 
 
   return (
