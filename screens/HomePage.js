@@ -85,7 +85,7 @@ const HomePage = () => {
           }
         }).catch((error) => {
           console.error("Erro ao obter dados do módulo:", error);
-          setCursoNome('Nome do Curso Padrão'); // Defina um valor padrão caso haja erro na obtenção dos dados
+          setCursoNome(''); // Defina um valor padrão caso haja erro na obtenção dos dados
         });
       }
     } catch (error) {

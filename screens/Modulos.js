@@ -13,6 +13,8 @@ const Modulos = () => {
   let modulosRef; // Definindo a variável no escopo externo
 
   useEffect(() => {
+    checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
+
     const fetchModulos = async () => {
       try {
         const db = getDatabase();
@@ -52,6 +54,12 @@ const handleStartModule = async (moduleName, moduleId) => {
   }
 };
 
+const checkIfLoggedIn = async () => {
+  const userToken = await AsyncStorage.getItem('userToken');
+  if (!userToken) {
+    navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
+  }
+};
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

@@ -1,5 +1,3 @@
-// Exercicio1.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image, Alert, StatusBar } from 'react-native';
 import Modal from "react-native-modal";
@@ -8,9 +6,13 @@ import TituloAula from '../components/TituloAula';
 import TituloQuiz from '../components/TituloQuiz';
 import { Picker } from '@react-native-picker/picker';
 import { getDatabase, ref, onValue, off } from "firebase/database";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Exercicio1 = ({ route }) => { // Receba o parâmetro route
-    const { moduleName } = route.params; // Extraia o nome do módulo do parâmetro
+const Exercicio1 = () => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { moduleName } = route.params;
 
     const [modulo, setModulo] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
@@ -18,10 +20,12 @@ const Exercicio1 = ({ route }) => { // Receba o parâmetro route
     const [shuffledOptions, setShuffledOptions] = useState(null);
 
     useEffect(() => {
+        checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
+
         const fetchModulo = async () => {
             try {
                 const db = getDatabase();
-                const moduloRef = ref(db, `modulos-geral/${moduleName}`); // Use o nome do módulo recebido como parâmetro
+                const moduloRef = ref(db, `modulos-geral/${moduleName}`);
 
                 onValue(moduloRef, (snapshot) => {
                     const moduloData = snapshot.val();
@@ -38,7 +42,7 @@ const Exercicio1 = ({ route }) => { // Receba o parâmetro route
         };
 
         fetchModulo();
-    }, [moduleName]); // Adicione moduleName como dependência para re-fazer a busca quando ele mudar
+    }, [moduleName]);
 
     useEffect(() => {
         setCurrentModal(1); // Define o estado currentModal como 1 ao montar o componente
@@ -83,7 +87,14 @@ const Exercicio1 = ({ route }) => { // Receba o parâmetro route
     const closeModal = () => {
         setCurrentModal(null);
         setSelectedOption(null);
-        setShuffledOptions(null); // Limpa as alternativas embaralhadas ao fechar o modal
+        setShuffledOptions(null);
+    };
+
+    const checkIfLoggedIn = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (!userToken) {
+        navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
+      }
     };
 
     return (
