@@ -18,6 +18,7 @@ const Exercicio1 = () => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [currentModal, setCurrentModal] = useState(null);
     const [shuffledOptions, setShuffledOptions] = useState(null);
+    const [answeredCorrectly, setAnsweredCorrectly] = useState([]);
 
     useEffect(() => {
         checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
@@ -46,6 +47,7 @@ const Exercicio1 = () => {
 
     useEffect(() => {
         setCurrentModal(1); // Define o estado currentModal como 1 ao montar o componente
+        checkAnsweredQuestions(); // Verifica quantas questões foram respondidas corretamente ao entrar na tela
     }, []);
 
     useEffect(() => {
@@ -53,6 +55,11 @@ const Exercicio1 = () => {
             shuffleOptions();
         }
     }, [currentModal]);
+
+    useEffect(() => {
+        // Atualiza as questões respondidas corretamente no AsyncStorage sempre que a lista answeredCorrectly muda
+        AsyncStorage.setItem(`${moduleName}_answeredCorrectly`, JSON.stringify(answeredCorrectly));
+    }, [answeredCorrectly]);
 
     const shuffleOptions = () => {
         const question = modulo[`pergunta0${currentModal - 1}`];
@@ -66,35 +73,33 @@ const Exercicio1 = () => {
         setShuffledOptions(shuffled);
     };
 
- 
-
-const handleSubmit = async (selectedQuestionIndex) => {
-    const question = modulo[`pergunta0${selectedQuestionIndex + 1}`];
-    if (selectedOption === question.respostaCerta) {
-        try {
-            const userToken = await AsyncStorage.getItem('userToken');
-            let acertos = await AsyncStorage.getItem(`${moduleName}_acertos`);
-            acertos = acertos ? JSON.parse(acertos) : 0;
-            acertos += 1;
-            await AsyncStorage.setItem(`${moduleName}_acertos`, JSON.stringify(acertos));
-        } catch (error) {
-            console.error('Erro ao armazenar o acerto:', error);
+    const handleSubmit = async (selectedQuestionIndex) => {
+        const question = modulo[`pergunta0${selectedQuestionIndex + 1}`];
+        if (selectedOption === question.respostaCerta) {
+            try {
+                const userToken = await AsyncStorage.getItem('userToken');
+                let acertos = await AsyncStorage.getItem(`${moduleName}_acertos`);
+                acertos = acertos ? JSON.parse(acertos) : 0;
+                acertos += 1;
+                await AsyncStorage.setItem(`${moduleName}_acertos`, JSON.stringify(acertos));
+                setAnsweredCorrectly(prevState => [...prevState, selectedQuestionIndex]);
+            } catch (error) {
+                console.error('Erro ao armazenar o acerto:', error);
+            }
+            Alert.alert(
+                "Parabéns!",
+                "Você acertou!",
+                [
+                    { text: "OK", onPress: () => setCurrentModal(null) }
+                ]
+            );
+        } else {
+            Alert.alert(
+                "Resposta Incorreta",
+                "Por favor, tente novamente."
+            );
         }
-        Alert.alert(
-            "Parabéns!",
-            "Você acertou!",
-            [
-                { text: "OK", onPress: () => setCurrentModal(null) }
-            ]
-        );
-    } else {
-        Alert.alert(
-            "Resposta Incorreta",
-            "Por favor, tente novamente."
-        );
-    }
-};
-
+    };
 
     const closeModal = () => {
         setCurrentModal(null);
@@ -106,6 +111,18 @@ const handleSubmit = async (selectedQuestionIndex) => {
         const userToken = await AsyncStorage.getItem('userToken');
         if (!userToken) {
             navigation.navigate('Login'); // Redireciona para a tela de Login se não estiver logado
+        }
+    };
+
+    const checkAnsweredQuestions = async () => {
+        try {
+            const answeredQuestions = await AsyncStorage.getItem(`${moduleName}_answeredCorrectly`);
+            if (answeredQuestions) {
+                const parsedAnsweredQuestions = JSON.parse(answeredQuestions);
+                setAnsweredCorrectly(parsedAnsweredQuestions);
+            }
+        } catch (error) {
+            console.error('Erro ao verificar questões respondidas:', error);
         }
     };
 
@@ -146,6 +163,10 @@ const handleSubmit = async (selectedQuestionIndex) => {
                                 if (key.startsWith('pergunta')) {
                                     const questionIndex = parseInt(key.slice(-2)) - 1;
                                     const question = modulo[key];
+                                    // Verifica se a pergunta já foi respondida corretamente
+                                    if (answeredCorrectly.includes(questionIndex)) {
+                                        return null; // Não exibe a pergunta
+                                    }
                                     return (
                                         <View key={index}>
                                             <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => setCurrentModal(questionIndex + 2)} />
