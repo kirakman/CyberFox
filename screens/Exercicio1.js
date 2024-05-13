@@ -83,6 +83,11 @@ const Exercicio1 = () => {
                 acertos += 1;
                 await AsyncStorage.setItem(`${moduleName}_acertos`, JSON.stringify(acertos));
                 setAnsweredCorrectly(prevState => [...prevState, selectedQuestionIndex]);
+    
+                // Verifica se todas as perguntas foram respondidas corretamente
+                if (answeredCorrectly.length === 4) {
+                    setAllQuestionsAnswered(true);
+                }
             } catch (error) {
                 console.error('Erro ao armazenar o acerto:', error);
             }
@@ -99,7 +104,7 @@ const Exercicio1 = () => {
                 "Por favor, tente novamente."
             );
         }
-    };
+    };    
 
     const closeModal = () => {
         setCurrentModal(null);
@@ -125,6 +130,8 @@ const Exercicio1 = () => {
             console.error('Erro ao verificar questões respondidas:', error);
         }
     };
+
+    const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); //Controla o estado SE todas as 5 perguntas foram respondidas corretamente
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -156,52 +163,67 @@ const Exercicio1 = () => {
                                 </View>
                             </View>
                         </Modal>
-                        <View style={{ flex: 1, alignItems: 'flex-start', top: '50%', gap: 15 }}>
 
-                            {/* Quizzes */}
-                            {modulo && Object.keys(modulo).map((key, index) => {
-                                if (key.startsWith('pergunta')) {
-                                    const questionIndex = parseInt(key.slice(-2)) - 1;
-                                    const question = modulo[key];
-                                    // Verifica se a pergunta já foi respondida corretamente
-                                    if (answeredCorrectly.includes(questionIndex)) {
-                                        return null; // Não exibe a pergunta
-                                    }
-                                    return (
-                                        <View key={index}>
-                                            <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => setCurrentModal(questionIndex + 2)} />
-                                            <Modal isVisible={currentModal === questionIndex + 2}>
-                                                <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15 }}>
-                                                    <TituloAula nomeAula={question.enunciadoQuestao} />
-                                                    <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
-                                                    <View style={styles.definicoes}>
-                                                        <Text style={{ fontSize: 18 }}>{`A: ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`B: ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`C: ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
-                                                        <Text style={{ fontSize: 18 }}>{`D: ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
-                                                    </View>
-                                                    <Picker
-                                                        selectedValue={selectedOption}
-                                                        onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
-                                                        <Picker.Item label="Opção A" value={shuffledOptions ? shuffledOptions[0] : ''} />
-                                                        <Picker.Item label="Opção B" value={shuffledOptions ? shuffledOptions[1] : ''} />
-                                                        <Picker.Item label="Opção C" value={shuffledOptions ? shuffledOptions[2] : ''} />
-                                                        <Picker.Item label="Opção D" value={shuffledOptions ? shuffledOptions[3] : ''} />
-                                                    </Picker>
-                                                    <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit(questionIndex)}>
-                                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
-                                                    </TouchableOpacity>
-                                                    <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-                                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
-                                                    </TouchableOpacity>
-                                                </View>
-                                            </Modal>
-                                        </View>
-                                    );
-                                }
-                                return null;
-                            })}
+                        {allQuestionsAnswered && (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Image source={require('../assets/raposacheckmark.png')} />
                         </View>
+                        )}
+
+{!allQuestionsAnswered && (
+    <View style={{ flex: 1, alignItems: 'flex-start', top: '50%', gap: 15 }}>
+        {/* Quizzes */}
+        {modulo && Object.keys(modulo).map((key, index) => {
+            if (key.startsWith('pergunta')) {
+                const questionIndex = parseInt(key.slice(-2)) - 1;
+                const question = modulo[key];
+                // Verifica se a pergunta já foi respondida corretamente
+                if (answeredCorrectly.includes(questionIndex)) {
+                    return null; // Não exibe a pergunta
+                }
+                return (
+                    <View key={index}>
+                        {/* Adicione a condição allQuestionsAnswered aqui */}
+                        {!allQuestionsAnswered && (
+                            <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => setCurrentModal(questionIndex + 2)} />
+                        )}
+                        {/* Adicione a condição allQuestionsAnswered aqui */}
+                        {!allQuestionsAnswered && (
+                            <Modal isVisible={currentModal === questionIndex + 2}>
+                                <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15 }}>
+                                    <TituloAula nomeAula={question.enunciadoQuestao} />
+                                    <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
+                                    <View style={styles.definicoes}>
+                                        <Text style={{ fontSize: 18 }}>{`A: ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
+                                        <Text style={{ fontSize: 18 }}>{`B: ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
+                                        <Text style={{ fontSize: 18 }}>{`C: ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
+                                        <Text style={{ fontSize: 18 }}>{`D: ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
+                                    </View>
+                                    <Picker
+                                        selectedValue={selectedOption}
+                                        onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
+                                        <Picker.Item label="Opção A" value={shuffledOptions ? shuffledOptions[0] : ''} />
+                                        <Picker.Item label="Opção B" value={shuffledOptions ? shuffledOptions[1] : ''} />
+                                        <Picker.Item label="Opção C" value={shuffledOptions ? shuffledOptions[2] : ''} />
+                                        <Picker.Item label="Opção D" value={shuffledOptions ? shuffledOptions[3] : ''} />
+                                    </Picker>
+                                    <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit(questionIndex)}>
+                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
+                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </Modal>
+                        )}
+                    </View>
+                );
+            }
+            return null;
+        })}
+    </View>
+)}
+
                     </View>
                 </ImageBackground>
             </ScrollView>
