@@ -11,7 +11,7 @@ const IniciarCurso = (props)=>{
 
     return(
         <TouchableOpacity style = {styles.botaoContainer} onPress={props.onPress}>
-            <Text style = {styles.textoBotao} >Inciar
+            <Text style = {styles.textoBotao} >Iniciar
             </Text>
             {props.icon && <Octicons name={props.icon} size={35} color="#000000" />}
         </TouchableOpacity>
