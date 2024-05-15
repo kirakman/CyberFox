@@ -13,39 +13,38 @@ export function Login() {
     const [password, setPassword] = useState('');
     const [isPasswordShown, setIsPasswordShown] = useState(true);
   
-    const login = async () => {
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+    const login = async () => {}
+    //     try {
+    //         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    //         const user = userCredential.user;
     
-            if (user.emailVerified) {
-                // Salvar estado de login do usuário
-                await AsyncStorage.setItem('userToken', user.email);
+    //         if (user.emailVerified) {
+    //             // Salvar estado de login do usuário
+    //             await AsyncStorage.setItem('userToken', user.email);
                 
-                // Verificar se há um nome de usuário associado a este email
-                const userName = await AsyncStorage.getItem(`userName_${user.email}`);
-                //console.log('userName:', userName); // Adiciona um log para verificar o valor de userName
+    //             // Verificar se há um nome de usuário associado a este email
+    //             const userName = await AsyncStorage.getItem(`userName_${user.email}`);
+    //             //console.log('userName:', userName); // Adiciona um log para verificar o valor de userName
     
-                if (userName && userName.trim() !== '') {
-                    // Se houver, navegue para a HomePage
-                    //console.log('Redirecionando para HomePage');
-                    navigation.navigate('HomePage');
-                } else {
-                    // Se não houver, navegue para a tela de Perfil para que o usuário possa inserir seu nome
-                    console.log('Redirecionando para Perfil');
-                    navigation.navigate('Perfil');
-                }
-            } else {
-                Alert.alert('Erro', 'Por favor, verifique seu e-mail para fazer login.');
-            }
-        } catch (error) {
-            Alert.alert('Error', error.message);
-        }
-    }
+    //             if (userName && userName.trim() !== '') {
+    //                 // Se houver, navegue para a HomePage
+    //                 //console.log('Redirecionando para HomePage');
+    //                 navigation.navigate('HomePage');
+    //             } else {
+    //                 // Se não houver, navegue para a tela de Perfil para que o usuário possa inserir seu nome
+    //                 console.log('Redirecionando para Perfil');
+    //                 navigation.navigate('Perfil');
+    //             }
+    //         } else {
+    //             Alert.alert('Erro', 'Por favor, verifique seu e-mail para fazer login.');
+    //         }
+    //     } catch (error) {
+    //         Alert.alert('Error', error.message);
+    //     }
+    // }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-           <StatusBar backgroundColor="#3E8B93" />
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ImageBackground source={require('../assets/-4reGoE9SKm8B11_KmfIwQ.png')} style={styles.backgroundImage}>
                     <View style={styles.logoContainer}>
