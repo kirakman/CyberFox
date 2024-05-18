@@ -45,14 +45,15 @@ const Modulos = () => {
   }, []); 
 
   // Função para navegar para a tela de exercícios com o nome do módulo como parâmetro
-const handleStartModule = async (moduleName, moduleId) => {
-  try {
-    await AsyncStorage.setItem('lastModuleId', moduleId);
-    navigation.navigate('Exercicio1', { moduleName });
-  } catch (error) {
-    console.error("Erro ao definir o último módulo:", error);
-  }
-};
+  const handleStartModule = async (moduleName, moduleId) => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      await AsyncStorage.setItem(`lastModuleId_${userToken}`, moduleId);
+      navigation.navigate('Exercicio1', { moduleName });
+    } catch (error) {
+      console.error("Erro ao definir o último módulo:", error);
+    }
+  };
 
 const checkIfLoggedIn = async () => {
   const userToken = await AsyncStorage.getItem('userToken');

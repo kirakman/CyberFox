@@ -75,20 +75,23 @@ const HomePage = () => {
 
   const fetchLastModuleData = async () => {
     try {
-      const moduleId = await AsyncStorage.getItem('lastModuleId');
-      if (moduleId) {
-        setLastModuleId(moduleId);
-        const db = getDatabase();
-        const moduloRef = ref(db, `modulos-geral/${moduleId}/topico01/titulo`);
-        get(moduloRef).then((snapshot) => {
-          if (snapshot.exists()) {
-            const cursoNome = snapshot.val();
-            setCursoNome(cursoNome);
-          }
-        }).catch((error) => {
-          console.error("Erro ao obter dados do módulo:", error);
-          setCursoNome(''); // Defina um valor padrão caso haja erro na obtenção dos dados
-        });
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        const lastModuleId = await AsyncStorage.getItem(`lastModuleId_${userToken}`);
+        if (lastModuleId) {
+          setLastModuleId(lastModuleId);
+          const db = getDatabase();
+          const moduloRef = ref(db, `modulos-geral/${lastModuleId}/topico01/titulo`);
+          get(moduloRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const cursoNome = snapshot.val();
+              setCursoNome(cursoNome);
+            }
+          }).catch((error) => {
+            console.error("Erro ao obter dados do módulo:", error);
+              setCursoNome(''); // Defina um valor padrão caso haja erro na obtenção dos dados
+          });
+        }
       }
     } catch (error) {
       console.error('Erro ao recuperar o último módulo:', error);
@@ -102,7 +105,7 @@ const HomePage = () => {
       const lastModuleId = await AsyncStorage.getItem('lastModuleId');
   
       if (lastModuleId) {
-        let acertos = await AsyncStorage.getItem(`${lastModuleId}_acertos`);
+        let acertos = await AsyncStorage.getItem(`${lastModuleId}_${userToken}_acertos`);
         acertos = acertos ? JSON.parse(acertos) : 0;
   
         // Quantidade total de exercícios (por exemplo, 5 exercícios)
@@ -120,8 +123,6 @@ const HomePage = () => {
     }
   };
   
-
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -179,7 +180,6 @@ const HomePage = () => {
     </SafeAreaView>
   );
 };
-
 
 
 const styles = StyleSheet.create({
