@@ -23,17 +23,17 @@ const Exercicio1 = () => {
 
     useEffect(() => {
         checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
-
+    
         const fetchModulo = async () => {
             try {
                 const db = getDatabase();
                 const moduloRef = ref(db, `modulos-geral/${moduleName}`);
-
+    
                 onValue(moduloRef, (snapshot) => {
                     const moduloData = snapshot.val();
                     setModulo(moduloData);
                 });
-
+    
                 // Cleanup
                 return () => {
                     off(moduloRef);
@@ -42,15 +42,14 @@ const Exercicio1 = () => {
                 console.error("Erro ao buscar o módulo:", error);
             }
         };
-
+    
         fetchModulo();
     }, [moduleName]);
-
+    
     useEffect(() => {
-        setCurrentModal(1); // Define o estado currentModal como 1 ao montar o componente
         checkAnsweredQuestions(); // Verifica quantas questões foram respondidas corretamente ao entrar na tela
         checkIfShowCheckmark(); // Verifica se a imagem deve ser exibida
-    }, []);
+    }, [moduleName]);
 
     useEffect(() => {
         if (currentModal && currentModal > 1) {
@@ -80,18 +79,21 @@ const Exercicio1 = () => {
         if (selectedOption === question.respostaCerta) {
             try {
                 const userToken = await AsyncStorage.getItem('userToken');
-                let acertos = await AsyncStorage.getItem(`${moduleName}_${userToken}_acertos`); // Alteração aqui
+                let acertos = await AsyncStorage.getItem(`${moduleName}_${userToken}_acertos`);
                 acertos = acertos ? JSON.parse(acertos) : 0;
                 acertos += 1;
-                await AsyncStorage.setItem(`${moduleName}_${userToken}_acertos`, JSON.stringify(acertos)); // Alteração aqui
+                await AsyncStorage.setItem(`${moduleName}_${userToken}_acertos`, JSON.stringify(acertos));
                 setAnsweredCorrectly(prevState => [...prevState, selectedQuestionIndex]);
     
                 // Verifica se todas as perguntas foram respondidas corretamente
                 if (answeredCorrectly.length === 4) {
                     setAllQuestionsAnswered(true);
                     setShowCheckmark(true);
-                    AsyncStorage.setItem(`${moduleName}_${userToken}_showCheckmark`, JSON.stringify(true)); // Alteração aqui
+                    AsyncStorage.setItem(`${moduleName}_${userToken}_showCheckmark`, JSON.stringify(true));
                 }
+    
+                // Adicionando log para verificar se os valores estão sendo armazenados corretamente
+                //console.log("Acertos atualizados:", acertos);
             } catch (error) {
                 console.error('Erro ao armazenar o acerto:', error);
             }
@@ -108,7 +110,8 @@ const Exercicio1 = () => {
                 "Por favor, tente novamente."
             );
         }
-    };    
+    };
+     
 
     const closeModal = () => {
         setCurrentModal(null);

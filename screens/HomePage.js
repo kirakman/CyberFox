@@ -101,27 +101,29 @@ const HomePage = () => {
 
   const fetchProgressoCurso = async () => {
     try {
-      const userToken = await AsyncStorage.getItem('userToken');
-      const lastModuleId = await AsyncStorage.getItem('lastModuleId');
-  
-      if (lastModuleId) {
-        let acertos = await AsyncStorage.getItem(`${lastModuleId}_${userToken}_acertos`);
-        acertos = acertos ? JSON.parse(acertos) : 0;
-  
-        // Quantidade total de exercícios (por exemplo, 5 exercícios)
-        const totalExercicios = 5;
-  
-        // Calcular o progresso com base nos acertos
-        const progresso = (acertos / totalExercicios) * 100;
-        setProgressoCurso(progresso);
-      } else {
-        // Se não houver módulo acessado anteriormente, defina o progresso como 0
-        setProgressoCurso(0);
-      }
+        const userToken = await AsyncStorage.getItem('userToken');
+        const lastModuleId = await AsyncStorage.getItem(`lastModuleId_${userToken}`);
+
+        if (lastModuleId) {
+            let acertos = await AsyncStorage.getItem(`${lastModuleId}_${userToken}_acertos`); // Ajuste aqui
+            acertos = acertos ? JSON.parse(acertos) : 0;
+
+            // Quantidade total de exercícios (por exemplo, 5 exercícios)
+            const totalExercicios = 5;
+
+            // Calcular o progresso com base nos acertos
+            const progresso = (acertos / totalExercicios) * 100;
+            setProgressoCurso(progresso);
+            //console.log("Progresso do curso atualizado:", progresso); // Adicionando log para verificar se o progresso está sendo atualizado corretamente
+        } else {
+            // Se não houver módulo acessado anteriormente, defina o progresso como 0
+            setProgressoCurso(0);
+        }
     } catch (error) {
-      console.error('Erro ao obter o progresso do curso:', error);
+        console.error('Erro ao obter o progresso do curso:', error);
     }
-  };
+};
+
   
   return (
     <SafeAreaView style={{ flex: 1 }}>
