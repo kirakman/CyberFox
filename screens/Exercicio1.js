@@ -80,17 +80,17 @@ const Exercicio1 = () => {
         if (selectedOption === question.respostaCerta) {
             try {
                 const userToken = await AsyncStorage.getItem('userToken');
-                let acertos = await AsyncStorage.getItem(`${moduleName}_acertos`);
+                let acertos = await AsyncStorage.getItem(`${moduleName}_${userToken}_acertos`); // Alteração aqui
                 acertos = acertos ? JSON.parse(acertos) : 0;
                 acertos += 1;
-                await AsyncStorage.setItem(`${moduleName}_acertos`, JSON.stringify(acertos));
+                await AsyncStorage.setItem(`${moduleName}_${userToken}_acertos`, JSON.stringify(acertos)); // Alteração aqui
                 setAnsweredCorrectly(prevState => [...prevState, selectedQuestionIndex]);
     
                 // Verifica se todas as perguntas foram respondidas corretamente
                 if (answeredCorrectly.length === 4) {
                     setAllQuestionsAnswered(true);
                     setShowCheckmark(true);
-                    AsyncStorage.setItem(`${moduleName}_showCheckmark`, JSON.stringify(true));
+                    AsyncStorage.setItem(`${moduleName}_${userToken}_showCheckmark`, JSON.stringify(true)); // Alteração aqui
                 }
             } catch (error) {
                 console.error('Erro ao armazenar o acerto:', error);
@@ -125,7 +125,8 @@ const Exercicio1 = () => {
 
     const checkAnsweredQuestions = async () => {
         try {
-            const answeredQuestions = await AsyncStorage.getItem(`${moduleName}_answeredCorrectly`);
+            const userToken = await AsyncStorage.getItem('userToken'); // Alteração aqui
+            const answeredQuestions = await AsyncStorage.getItem(`${moduleName}_${userToken}_answeredCorrectly`); // Alteração aqui
             if (answeredQuestions) {
                 const parsedAnsweredQuestions = JSON.parse(answeredQuestions);
                 setAnsweredCorrectly(parsedAnsweredQuestions);
@@ -137,7 +138,8 @@ const Exercicio1 = () => {
 
     const checkIfShowCheckmark = async () => {
         try {
-            const showCheckmarkValue = await AsyncStorage.getItem(`${moduleName}_showCheckmark`);
+            const userToken = await AsyncStorage.getItem('userToken'); // Alteração aqui
+            const showCheckmarkValue = await AsyncStorage.getItem(`${moduleName}_${userToken}_showCheckmark`); // Alteração aqui
             if (showCheckmarkValue !== null) {
                 setShowCheckmark(JSON.parse(showCheckmarkValue));
             }
@@ -147,7 +149,6 @@ const Exercicio1 = () => {
     };
 
     const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); //Controla o estado SE todas as 5 perguntas foram respondidas corretamente
-
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#67311C" />
