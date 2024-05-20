@@ -214,6 +214,11 @@ const Exercicio1 = () => {
                                                                 <Text style={{ fontSize: 18 }}>{`C: ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
                                                                 <Text style={{ fontSize: 18 }}>{`D: ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
                                                             </View>
+                                                            <View>
+                                                                <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+                                                                    Escolha a opção correta
+                                                                </Text>
+                                                            </View>
                                                             <Picker
                                                                 selectedValue={selectedOption}
                                                                 onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
@@ -288,12 +293,12 @@ const styles = StyleSheet.create({
         height: 50,
         width: 200,
         marginTop: 20,
-        marginBottom: 20
+        marginBottom: 20,
     },
     definicoes: {
         gap: 16,
-        marginTop: 25,
-        paddingBottom: 25
+        marginTop: 35,
+        paddingBottom: 50
     }
 });
 
