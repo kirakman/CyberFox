@@ -75,20 +75,23 @@ const HomePage = () => {
 
   const fetchLastModuleData = async () => {
     try {
-      const moduleId = await AsyncStorage.getItem('lastModuleId');
-      if (moduleId) {
-        setLastModuleId(moduleId);
-        const db = getDatabase();
-        const moduloRef = ref(db, `modulos-geral/${moduleId}/topico01/titulo`);
-        get(moduloRef).then((snapshot) => {
-          if (snapshot.exists()) {
-            const cursoNome = snapshot.val();
-            setCursoNome(cursoNome);
-          }
-        }).catch((error) => {
-          console.error("Erro ao obter dados do módulo:", error);
-          setCursoNome(''); // Defina um valor padrão caso haja erro na obtenção dos dados
-        });
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        const lastModuleId = await AsyncStorage.getItem(`lastModuleId_${userToken}`);
+        if (lastModuleId) {
+          setLastModuleId(lastModuleId);
+          const db = getDatabase();
+          const moduloRef = ref(db, `modulos-geral/${lastModuleId}/topico01/titulo`);
+          get(moduloRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const cursoNome = snapshot.val();
+              setCursoNome(cursoNome);
+            }
+          }).catch((error) => {
+            console.error("Erro ao obter dados do módulo:", error);
+              setCursoNome(''); // Defina um valor padrão caso haja erro na obtenção dos dados
+          });
+        }
       }
     } catch (error) {
       console.error('Erro ao recuperar o último módulo:', error);
@@ -98,30 +101,30 @@ const HomePage = () => {
 
   const fetchProgressoCurso = async () => {
     try {
-      const userToken = await AsyncStorage.getItem('userToken');
-      const lastModuleId = await AsyncStorage.getItem('lastModuleId');
-  
-      if (lastModuleId) {
-        let acertos = await AsyncStorage.getItem(`${lastModuleId}_acertos`);
-        acertos = acertos ? JSON.parse(acertos) : 0;
-  
-        // Quantidade total de exercícios (por exemplo, 5 exercícios)
-        const totalExercicios = 5;
-  
-        // Calcular o progresso com base nos acertos
-        const progresso = (acertos / totalExercicios) * 100;
-        setProgressoCurso(progresso);
-      } else {
-        // Se não houver módulo acessado anteriormente, defina o progresso como 0
-        setProgressoCurso(0);
-      }
+        const userToken = await AsyncStorage.getItem('userToken');
+        const lastModuleId = await AsyncStorage.getItem(`lastModuleId_${userToken}`);
+
+        if (lastModuleId) {
+            let acertos = await AsyncStorage.getItem(`${lastModuleId}_${userToken}_acertos`); // Ajuste aqui
+            acertos = acertos ? JSON.parse(acertos) : 0;
+
+            // Quantidade total de exercícios (por exemplo, 5 exercícios)
+            const totalExercicios = 5;
+
+            // Calcular o progresso com base nos acertos
+            const progresso = (acertos / totalExercicios) * 100;
+            setProgressoCurso(progresso);
+            //console.log("Progresso do curso atualizado:", progresso); // Adicionando log para verificar se o progresso está sendo atualizado corretamente
+        } else {
+            // Se não houver módulo acessado anteriormente, defina o progresso como 0
+            setProgressoCurso(0);
+        }
     } catch (error) {
-      console.error('Erro ao obter o progresso do curso:', error);
+        console.error('Erro ao obter o progresso do curso:', error);
     }
-  };
+};
+
   
-
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -179,7 +182,6 @@ const HomePage = () => {
     </SafeAreaView>
   );
 };
-
 
 
 const styles = StyleSheet.create({
