@@ -20,6 +20,7 @@ const Exercicio1 = () => {
     const [shuffledOptions, setShuffledOptions] = useState(null);
     const [answeredCorrectly, setAnsweredCorrectly] = useState([]);
     const [showCheckmark, setShowCheckmark] = useState(false);
+    const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); //Controla o estado SE todas as 5 perguntas foram respondidas corretamente
 
     useEffect(() => {
         checkIfLoggedIn(); // Verifica se o usuário está logado ao montar a tela
@@ -59,7 +60,13 @@ const Exercicio1 = () => {
 
     useEffect(() => {
         // Atualiza as questões respondidas corretamente no AsyncStorage sempre que a lista answeredCorrectly muda
-        AsyncStorage.setItem(`${moduleName}_answeredCorrectly`, JSON.stringify(answeredCorrectly));
+        const updateAnsweredCorrectly = async () => {
+            const userToken = await AsyncStorage.getItem('userToken');
+            if (userToken) {
+                await AsyncStorage.setItem(`${moduleName}_${userToken}_answeredCorrectly`, JSON.stringify(answeredCorrectly));
+            }
+        };
+        updateAnsweredCorrectly();
     }, [answeredCorrectly]);
 
     const shuffleOptions = () => {
@@ -91,9 +98,6 @@ const Exercicio1 = () => {
                     setShowCheckmark(true);
                     AsyncStorage.setItem(`${moduleName}_${userToken}_showCheckmark`, JSON.stringify(true));
                 }
-    
-                // Adicionando log para verificar se os valores estão sendo armazenados corretamente
-                //console.log("Acertos atualizados:", acertos);
             } catch (error) {
                 console.error('Erro ao armazenar o acerto:', error);
             }
@@ -111,7 +115,6 @@ const Exercicio1 = () => {
             );
         }
     };
-     
 
     const closeModal = () => {
         setCurrentModal(null);
@@ -128,8 +131,8 @@ const Exercicio1 = () => {
 
     const checkAnsweredQuestions = async () => {
         try {
-            const userToken = await AsyncStorage.getItem('userToken'); // Alteração aqui
-            const answeredQuestions = await AsyncStorage.getItem(`${moduleName}_${userToken}_answeredCorrectly`); // Alteração aqui
+            const userToken = await AsyncStorage.getItem('userToken');
+            const answeredQuestions = await AsyncStorage.getItem(`${moduleName}_${userToken}_answeredCorrectly`);
             if (answeredQuestions) {
                 const parsedAnsweredQuestions = JSON.parse(answeredQuestions);
                 setAnsweredCorrectly(parsedAnsweredQuestions);
@@ -141,8 +144,8 @@ const Exercicio1 = () => {
 
     const checkIfShowCheckmark = async () => {
         try {
-            const userToken = await AsyncStorage.getItem('userToken'); // Alteração aqui
-            const showCheckmarkValue = await AsyncStorage.getItem(`${moduleName}_${userToken}_showCheckmark`); // Alteração aqui
+            const userToken = await AsyncStorage.getItem('userToken');
+            const showCheckmarkValue = await AsyncStorage.getItem(`${moduleName}_${userToken}_showCheckmark`);
             if (showCheckmarkValue !== null) {
                 setShowCheckmark(JSON.parse(showCheckmarkValue));
             }
@@ -151,7 +154,6 @@ const Exercicio1 = () => {
         }
     };
 
-    const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); //Controla o estado SE todas as 5 perguntas foram respondidas corretamente
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#67311C" />
@@ -242,7 +244,6 @@ const Exercicio1 = () => {
                                 })}
                             </View>
                         )}
-
                     </View>
                 </ImageBackground>
             </ScrollView>
