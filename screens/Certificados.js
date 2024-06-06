@@ -27,14 +27,10 @@ const Certificados = () => {
           source={require("../assets/BackgroundHomePage.png")}
           style={styles.backgroundImage}
         >
-          <IndicadorTela nomeTela= "Certificados"></IndicadorTela>
+          <IndicadorTela nomeTela= "Certificado"></IndicadorTela>
 
-          <ModulosCertificados tituloQuiz= "Certificado - Módulo 1">
+          <ModulosCertificados tituloQuiz= "Certificado - Cyber Fox">
             <IniciarQuiz iconQuiz= "unlock"></IniciarQuiz>
-          </ModulosCertificados>
-
-          <ModulosCertificados tituloQuiz = "Certificado - Módulo 2 ">
-            <IniciarQuiz iconQuiz= "lock"></IniciarQuiz>
           </ModulosCertificados>
 
         </ImageBackground>
