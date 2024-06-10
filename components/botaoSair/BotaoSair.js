@@ -10,7 +10,7 @@ const BotaoSair = ({onPress}) =>{
       <TouchableOpacity style={styles.containerSair}
       onPress={onPress}
       >
-        <MaterialIcons name="logout" size={40} color="black" />
+        <MaterialIcons name="logout" size={32} color="black" />
         <Text style={styles.textoBotaoSair}>Sair</Text>
       </TouchableOpacity>
     );
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
    containerSair:{
     backgroundColor: "#CA7745",
     width: 300,
-    height: 60,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
    },
     textoBotaoSair:{
         color: "#000000",
-        fontSize: 22,
+        fontSize: 24,
+        fontWeight: "500"
     }
 })
 export default BotaoSair;
