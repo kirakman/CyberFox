@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import IndicadorTela from "../components/indicadorTela/IndicadorTela";
 import ModulosCurso from "../components/modulosCurso/ModulosCurso";
 import IniciarCurso from "../components/botaoInicarCurso/InicarCurso";
@@ -68,9 +68,9 @@ const checkIfLoggedIn = async () => {
         source={require("../assets/BackgroundHomePage.png")}
         style={styles.backgroundImage}
       >
-        <ScrollView style={{ flex: 1 }}>
           <IndicadorTela nomeTela="Modulos"></IndicadorTela>
-
+          <View style={styles.containerModulos}>
+          <ScrollView style={{ flex: 1 }}>
           {/* Renderize os módulos */}
           {modulos.map((modulo) => (
             <ModulosCurso
@@ -82,7 +82,8 @@ const checkIfLoggedIn = async () => {
               <IniciarCurso icon="unlock" onPress={() => handleStartModule(modulo.nomeModulo, modulo.id)}></IniciarCurso>
             </ModulosCurso>
           ))}
-        </ScrollView>
+          </ScrollView>
+          </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -97,6 +98,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
+  containerModulos:{
+    paddingLeft: 5,
+    paddingRight: 5,
+    flex: 0.9,
+    paddingBottom: 30,
+    marginTop: "5%",
+    marginBottom: "2%"
+  }
 });
 
 export default Modulos;
