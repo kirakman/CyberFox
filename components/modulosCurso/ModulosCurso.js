@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     modulosContainer:{ 
         backgroundColor: "rgba(2, 30, 31, 0.5)",
         height: 200,
-        width: 320,
+        width: 340,
+        marginBottom: 50,
         marginTop: "10%",
         borderRadius: 15,
         overflow: "hidden",
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
     },
     textoModulos: {
         color: "#000000",
-        fontWeight: '700',
-        fontSize: 26,
+        fontWeight: '500',
+        fontSize: 24,
     },
     titulosContainer:{
         alignItems: "center",
@@ -44,13 +45,12 @@ const styles = StyleSheet.create({
         height: "50%",
         padding: 1,
         overflow:"hidden"
-     
-       
     },
     nomeCurso: {
         color: "#FFFFFF",
-        fontSize:26,
-        textAlign: "center"
+        fontSize: 23,
+        textAlign: "center",
+        fontWeight: "400"
     }
 
 })
