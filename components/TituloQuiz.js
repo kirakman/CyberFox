@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     indicadorContainer:{
         backgroundColor: "#CA7745",
         justifyContent: "center",
-        padding: 15,
+        padding: 10,
         borderRadius: 15,
     },
     textoIndicador: {
         color: "#fff",
         fontSize:  22,
-        fontWeight: "700",
+        fontWeight: "300",
         textAlign: "center"
     }
 
