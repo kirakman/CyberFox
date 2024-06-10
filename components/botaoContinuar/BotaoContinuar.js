@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   textoBotaoContinue: {
-    fontSize: 32,
+    fontSize: 28,
     textAlign: "center",
     color: "#000000",
-    fontWeight: "500"
+    fontWeight: "400"
  },
 
 });
