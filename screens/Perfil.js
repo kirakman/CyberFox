@@ -113,7 +113,7 @@ const Perfil = ()=>{
               <Text style = {styles.textoInput}>Nome de usuário</Text>
               <TextInput
                 style={styles.inputTexto}
-                placeholder="Nome de usuario"
+                placeholder="Digite seu nome"
                 placeholderTextColor="#000000"
                 value={novoNome}
                 onChangeText={setNovoNome}
@@ -160,10 +160,12 @@ const styles = StyleSheet.create({
   },
   containerPerfil: {
     backgroundColor: "rgba(2, 30, 31, 0.5)",
-    height: "60%",
+    height: "70%",
     width: "90%",
-    marginTop: "10%",
-    borderRadius: 25,
+    marginTop: "5%",
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: '#fff',
     overflow: "hidden",
     alignItems: "center",
     flexDirection: "column",
@@ -185,19 +187,19 @@ const styles = StyleSheet.create({
   },
   nomeUsuario: {
     color: "#FFFFFF",
-    fontSize: 22,
+    fontSize: 24,
+    fontWeight: "500"
   },
   inputTexto: {
     backgroundColor: "#CA7745",
     width: 300,
     height: 40,
     marginTop: 0,
-    borderRadius: 20,
+    borderRadius: 15,
     padding: 10,
-
     textAlign: "center",
     color: "#FFFFFF",
-    fontSize: 18
+    fontSize: 20
   },
   containerBotaoSalvar: {
     justifyContent: "center",
@@ -220,7 +222,8 @@ const styles = StyleSheet.create({
   textoInput:{
     color: "#FFFFFF",
     fontSize: 22, 
-    marginLeft: 10
+    marginLeft: 10,
+    fontWeight: "400"
   },
  
 });
