@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, SafeAreaView, StyleSheet, View, Alert, Platform, TextInput, Button } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, View, TextInput } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import IndicadorTela from "../components/indicadorTela/IndicadorTela";
 import BotaoCertificado from "../components/BotaoCertificado";
 import ModulosCertificados from "../components/modulosCertificados";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PermissionsAndroid } from 'react-native';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
