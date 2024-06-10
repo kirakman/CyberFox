@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, SafeAreaView, StyleSheet, View, TextInput } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, View, TextInput, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import IndicadorTela from "../components/indicadorTela/IndicadorTela";
 import BotaoCertificado from "../components/BotaoCertificado";
@@ -24,66 +24,82 @@ const Certificados = () => {
 
     let [name, setName] = useState("");
 
+    const imageUri = Image.resolveAssetSource(require('../assets/background-certificado.jpg')).uri;
+
     const html = `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: 'Arial, sans-serif';
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f3f3f3;
-          }
-          .certificate-container {
-            width: 80%;
-            padding: 20px;
-            border: 10px solid #CA7745;
-            border-radius: 15px;
-            background-color: white;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            background-image: url('/assets/VsnSy25aRTuBJx3-83GrKQ.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-          }
-          .certificate-title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #333;
-          }
-          .certificate-body {
-            margin-top: 20px;
-            font-size: 18px;
-            line-height: 1.5;
-            color: #555;
-          }
-          .certificate-footer {
-            margin-top: 30px;
-            font-size: 16px;
-            color: #777;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="certificate-container">
-          <div class="certificate-title">Certificado de Conclusão</div>
-          <div class="certificate-body">
-            <p>Este é para certificar que</p>
-            <h1>${name}</h1>
-            <p>concluiu com sucesso o curso de <strong>Cyber Fox</strong>.</p>
-            <p>com o total de <strong>20 horas<strong>.</p>
-          </div>
-          <div class="certificate-footer">
-            <p>&copy; 2024 Cyber Fox. Todos os direitos reservados.</p>
-          </div>
-        </div>
-      </body>
-    </html>
+
+  <html>
+  <head>
+    <style>
+      body {
+        font-family: 'Arial, sans-serif';
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+        overflow: hidden; 
+      }
+      .all-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+      .certificate-container {
+        width: 100%;
+        text-align: center;
+        position: relative; 
+        z-index: 1; 
+        margin: 0; 
+        top: 50%; 
+        transform: translateY(-50%);
+      }
+      .certificate-title {
+        font-size: 40px;
+        font-weight: bold;
+        color: #333;
+      }
+      .certificate-body {
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #555;
+      }
+      .certificate-footer {
+        margin-top: 30px;
+        font-size: 16px;
+        color: #777;
+      }
+      .certificate-image {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="certificate-container">
+      <div class="certificate-body">
+        <h1 class="certificate-title">CERTIFICADO DE CONCLUSÃO</h1>
+        <p>Parabéns ao aluno(a)</p>
+        <h1>${name}</h1>
+        <p>concluiu com sucesso o curso de <strong>Cyber Fox</strong>.</p>
+        <p>com o total de <strong>20 horas<strong>.</p>
+      </div>
+      <div class="certificate-footer">
+        <p>&copy; 2024 Cyber Fox. Todos os direitos reservados.</p>
+      </div>
+    </div>
+    <div class="all-container">
+      <img src="${imageUri}" alt="background" class="certificate-image">
+    </div>
+  </body>
+</html>
+
     `;
     
 
