@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 
 const TituloExercicio = (props)=>{
@@ -15,7 +15,7 @@ const TituloExercicio = (props)=>{
 const styles = StyleSheet.create({
     indicadorContainer:{
         backgroundColor: "#fff",
-        marginTop: "15%",
+        marginTop: "5%",
         height: 90,
         width: '90%',
         justifyContent: "center",
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     },
     textoIndicador: {
         color: "#000000",
-        fontSize:  25,
-        fontWeight: "700",
+        fontSize:  24,
+        fontWeight: "500",
         textAlign: "center"
     }
 
