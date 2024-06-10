@@ -1,27 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 
 const TituloAula = (props)=>{
     return(
         <View style={styles.indicadorContainer}>
-        <View>
             <Text style = {styles.textoIndicador}>{props.nomeAula}</Text>
-        </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     indicadorContainer:{
-        marginBottom: 25,
+        marginBottom: 5,
         marginTop: 25,
         justifyContent: "center",
     },
     textoIndicador: {
         color: "#CA7745",
-        fontSize:  25,
-        fontWeight: "700",
+        fontSize:  24,
+        fontWeight: "500",
         textAlign: "center"
     }
 
