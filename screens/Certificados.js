@@ -43,7 +43,7 @@ const Certificados = () => {
           .certificate-container {
             width: 80%;
             padding: 20px;
-            border: 10px solid #4CAF50;
+            border: 10px solid #CA7745;
             border-radius: 15px;
             background-color: white;
             text-align: center;
@@ -77,7 +77,8 @@ const Certificados = () => {
           <div class="certificate-body">
             <p>Este é para certificar que</p>
             <h1>${name}</h1>
-            <p>concluiu com sucesso o curso de Cyber Fox.</p>
+            <p>concluiu com sucesso o curso de <strong>Cyber Fox</strong>.</p>
+            <p>com o total de <strong>20 horas<strong>.</p>
           </div>
           <div class="certificate-footer">
             <p>&copy; 2024 Cyber Fox. Todos os direitos reservados.</p>
