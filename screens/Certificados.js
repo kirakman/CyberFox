@@ -22,12 +22,13 @@ const Certificados = () => {
       }
     };
 
-    let [name, setName] = useState("");
+  let [name, setName] = useState("");
 
-    const imageUri = Image.resolveAssetSource(require('../assets/background-certificado.jpg')).uri;
+  const imageUri = Image.resolveAssetSource(require('../assets/background-certificado.jpg')).uri;
 
-    const html = `
-
+  const html = 
+  
+  `
   <html>
   <head>
     <style>
@@ -98,10 +99,8 @@ const Certificados = () => {
       <img src="${imageUri}" alt="background" class="certificate-image">
     </div>
   </body>
-</html>
-
-    `;
-    
+  </html>
+`;
 
     let generatePdf = async () => {
       const file = await Print.printToFileAsync({
