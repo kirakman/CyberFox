@@ -22,15 +22,16 @@ const BotaoCertificado = ()=>{
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
-    marginBottom: 50, 
+    marginBottom: 50,
     flexDirection: "row",
-    gap: 25
+    gap: 8
     
    },
    textoBotaoCertificado:{
     color: "#000000",
     fontSize: 20,
-    marginTop: -5
+    marginTop: -5,
+    fontWeight: "400"
    }
  })
 export default BotaoCertificado;
