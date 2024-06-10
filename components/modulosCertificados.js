@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     },
     textoModulosCertificados: {
         color: "#000000",
-        fontWeight: '700',
-        fontSize: 26,
+        fontWeight: '500',
+        fontSize: 24,
     },
     botaoContainer:{
         alignItems: "center",
