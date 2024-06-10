@@ -6,9 +6,9 @@ const IniciarQuiz= (props)=>{
 
     return(
         <TouchableOpacity style = {styles.botaoContainer}>
-            <Text style = {styles.textoBotaoQuiz} >Inciar
+            <Text style = {styles.textoBotaoQuiz} >Acessar
             </Text>
-            {props.iconQuiz && <Octicons name={props.iconQuiz} size={35} color="#000000" />}
+            {props.iconQuiz && <Octicons name={props.iconQuiz} size={28} color="#000000" />}
         </TouchableOpacity>
     )
 }
@@ -25,8 +25,8 @@ const IniciarQuiz= (props)=>{
     },
 textoBotaoQuiz: {
         color: "#000000",
-        fontSize: 30,
-        fontWeight: "600"
+        fontSize: 28,
+        fontWeight: "400"
     }
    
  })
