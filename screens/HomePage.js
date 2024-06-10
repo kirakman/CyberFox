@@ -165,6 +165,7 @@ const HomePage = () => {
         </View>
 
          {/* Renderize o último módulo acessado, se houver */}
+         <View style={styles.containerModulo}>
          {lastModuleId && cursoNome && (
           <ModulosCurso
             key={lastModuleId}
@@ -175,6 +176,7 @@ const HomePage = () => {
             <BotaoContinuar onPress={() => navigation.navigate('Exercicio1', { moduleName: cursoNome })}></BotaoContinuar>
           </ModulosCurso>
         )}
+        </View>
 
        
             
@@ -195,18 +197,21 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#021E1F",
-    width: "90%",
+    width: "93%",
     height: 80,
-    marginTop: "15%",
+    marginTop: "10%",
     borderRadius: 15,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around",
+    padding: 2,
+    gap: 7
   },
   Textheader: {
     color: "#FFFFFF",
-    fontSize: 25,
+    fontSize: 22,
     marginLeft: 10,
+    fontWeight: "400"
   },
   TextheaderUsuario: {
     color: "#FFFFFF",
@@ -214,11 +219,12 @@ const styles = StyleSheet.create({
     marginLeft: -5
   },
   fotoPerfil: {
-    height: 60,
-    width: 60,
+    height: 55,
+    width: 55,
     borderWidth: 1,
     borderRadius: 50,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    marginRight: 8
   },
   containerProgresso: {
     backgroundColor: "#CA7745",
@@ -228,11 +234,12 @@ const styles = StyleSheet.create({
   },
   textoProgressoCurso: {
     color: "#000000",
-    fontWeight: '700',
+    fontWeight: '400',
     fontSize: 26,
   },
- 
- 
+  containerModulo:{
+    marginTop: "8%"
+  }
 });
 
 const HomePageTabBar = () => {
