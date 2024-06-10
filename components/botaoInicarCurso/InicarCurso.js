@@ -13,7 +13,7 @@ const IniciarCurso = (props)=>{
         <TouchableOpacity style = {styles.botaoContainer} onPress={props.onPress}>
             <Text style = {styles.textoBotao} >Iniciar
             </Text>
-            {props.icon && <Octicons name={props.icon} size={35} color="#000000" />}
+            {props.icon && <Octicons name={props.icon} size={28} color="#000000" />}
         </TouchableOpacity>
     )
 }
@@ -31,8 +31,8 @@ const IniciarCurso = (props)=>{
     },
     textoBotao: {
         color: "#000000",
-        fontSize: 30,
-        fontWeight: "600"
+        fontSize: 28,
+        fontWeight: "400"
     },
    
  })
