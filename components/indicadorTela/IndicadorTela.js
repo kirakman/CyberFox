@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
     indicadorContainer:{
         backgroundColor: "#CA7745",
         flexDirection: "column",
-        marginTop: "15%",
+        marginTop: "5%",
         height: 40,
-        width: 150,
+        width: 200,
         padding: 2,
         alignItems: "center",
         justifyContent: "center",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     textoIndicador: {
         color: "#000000",
         fontSize:  25,
-        fontWeight: "700",
+        fontWeight: "500",
         textAlign: "center"
     }
 
