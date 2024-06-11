@@ -1,4 +1,4 @@
-# CyberProjectApp
+# Cyber Fox App
 **CyberProjectApp** é um aplicativo desenvolvido com React Native e Expo. O aplicativo IOS/ANDROID tem como objetivo o ensino sobre Ciber Segurança e como se proteger dos mesmos, através de textos e exercícios práticos, com uma carga de **20 Horas** o aplicativo oferece uma vasta quantidade de abordagens sobre ataques cibernéticos, ao final o usuário poderá gerar o certificado com seu nome de preferência. Ele utiliza a navegação baseada em pilha (stack) para gerenciar várias telas, incluindo autenticação, módulos, quizzes e perfis de usuário.
 
 # Funcionalidades:
