@@ -186,13 +186,14 @@ const Exercicio1 = () => {
                         </Modal>
 
                         {showCheckmark && (
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: "50%" }}>
                                 <Image source={require('../assets/raposacheckmark.png')} />
                             </View>
                         )}
 
                         {!allQuestionsAnswered && (
-                            <View style={{ flex: 1, alignItems: 'flex-start', top: '50%', gap: 15 }}>
+                            <View style={styles.containerQuestoes}>
+                                <ScrollView Style={{flex:1}}>
                                 {/* Quizzes */}
                                 {modulo && Object.keys(modulo).map((key, index) => {
                                     if (key.startsWith('pergunta')) {
@@ -201,9 +202,9 @@ const Exercicio1 = () => {
                                         // Verifica se a pergunta já foi respondida corretamente
                                         if (answeredCorrectly.includes(questionIndex)) {
                                             return null; // Não exibe a pergunta
-                                        }
-                                        return (
-                                            <View key={index}>
+                                            }
+                                            return (
+                                                <View key={index} style={styles.questoesExercicios}>
                                                 {/* Adicione a condição allQuestionsAnswered aqui */}
                                                 {!allQuestionsAnswered && (
                                                     <TituloQuiz nomeQuiz={question.enunciadoQuestao} onPress={() => setCurrentModal(questionIndex + 2)} />
@@ -214,6 +215,8 @@ const Exercicio1 = () => {
                                                         <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15 }}>
                                                             <TituloAula nomeAula={question.enunciadoQuestao} />
                                                             <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
+                                                        <ScrollView contentContainerStyle={{ flexGrow: 1}}>
+                                                        <View style= {styles.containerPerguntaResposta}>
                                                             <View style={styles.definicoes}>
                                                                 <Text style={{ fontSize: 18 }}>{`A: ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
                                                                 <Text style={{ fontSize: 18 }}>{`B: ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
@@ -222,7 +225,7 @@ const Exercicio1 = () => {
                                                             </View>
                                                             <View>
                                                                 <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                                                                    Escolha a opção correta
+                                                                    Escolha a opção correta:
                                                                 </Text>
                                                             </View>
                                                             <Picker
@@ -239,6 +242,8 @@ const Exercicio1 = () => {
                                                             <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                                                                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
                                                             </TouchableOpacity>
+                                                            </View>
+                                                        </ScrollView>
                                                         </View>
                                                     </Modal>
                                                 )}
@@ -247,6 +252,8 @@ const Exercicio1 = () => {
                                     }
                                     return null;
                                 })}
+                                         </ScrollView>
+
                             </View>
                         )}
                     </View>
@@ -279,7 +286,7 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 10,
         backgroundColor: '#CA7745',
-        marginTop: 20
+        marginTop: 12
     },
     submitButton: {
         display: 'flex',
@@ -292,7 +299,8 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 10,
         backgroundColor: '#021E1F',
-        marginTop: 20
+        marginTop: 120,
+        marginBottom: 6
     },
     pickerStyles: {
         height: 50,
@@ -303,7 +311,37 @@ const styles = StyleSheet.create({
     definicoes: {
         gap: 16,
         marginTop: 35,
-        paddingBottom: 50
+        paddingBottom: 50,
+        borderColor: 'white',
+        borderRadius: 16,
+        paddingHorizontal:16,
+        flexDirection:'column',
+        flex: 0.9
+    },
+    containerPerguntaResposta:{
+        alignItems: 'center',
+        flexDirection:'column', 
+        paddingBottom: 12,
+    },
+    modalResposta:{
+        marginTop: 40,
+        alignItems: 'center',
+    },
+    containerTitulo:{
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: "5%"
+    }, 
+    containerQuestoes:{
+        flex: 1, 
+        marginBottom: 0, 
+        paddingTop: "60%"
+    },
+    questoesExercicios:{
+        paddingLeft: 5, 
+        paddingRight: 5,
+        marginBottom: 15, 
+        marginHorizontal: 10,
     }
 });
 
