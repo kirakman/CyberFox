@@ -175,7 +175,10 @@ const styles = StyleSheet.create({
     width: 100,
     marginTop: 30,
     marginBottom: 15,
-    borderRadius: 50
+    borderRadius: 50,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: '#fff',
   },
   inconeContainer:{
     position: 'absolute',
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
     right: 5,
     backgroundColor: '#F4F3F3',
     borderRadius: 50,
-    padding:5
+    padding:5,
   },
   nomeUsuario: {
     color: "#FFFFFF",

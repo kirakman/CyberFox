@@ -69,6 +69,7 @@ const checkIfLoggedIn = async () => {
         style={styles.backgroundImage}
       >
           <IndicadorTela nomeTela="Modulos"></IndicadorTela>
+          
           <View style={styles.containerModulos}>
           <ScrollView style={{ flex: 1 }}>
           {/* Renderize os módulos */}
