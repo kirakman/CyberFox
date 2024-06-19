@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(2, 30, 31, 0.5)",
         height: 200,
         width: 340,
-        marginBottom: 50,
-        marginTop: "10%",
+        marginBottom: 20,
         borderRadius: 15,
         overflow: "hidden",
         alignItems: "center",
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     },
     nomeCurso: {
         color: "#FFFFFF",
-        fontSize: 23,
+        fontSize:23,
         textAlign: "center",
         fontWeight: "400"
     }

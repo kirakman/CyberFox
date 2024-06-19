@@ -157,12 +157,15 @@ const Exercicio1 = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#67311C" />
-            <ScrollView contentContainerStyle={{ flexGrow: 1}}>
                 <ImageBackground source={require('../assets/background_aulas_invertido.png')} style={styles.backgroundImage}>
-                    <View style={{ alignItems: 'center' }}>
+
+                    <View style= {styles.containerTitulo}>
                         <TituloExercicio nomeExercicio={modulo ? modulo.topico01.titulo : "Carregando..."} onPress={() => setCurrentModal(1)} />
+                    </View>
+                    
+                      {/* modal de introducao dos modulos */}
                         <Modal isVisible={currentModal === 1}>
-                            <View style={{ flex: 1, backgroundColor: '#67311C', borderColor: 'white', borderRadius: 15, alignItems: 'center' }}>
+                            <View style={{ flex: 1, backgroundColor: '#67311C', borderRadius: 15, alignItems: 'center', marginTop: "10%", marginBottom: "10%"  }}>
                                 <View style={styles.modalContainer}>
                                     <ScrollView style={{ width: '90%' }}>
                                         {modulo && Object.keys(modulo).map((key, index) => {
@@ -179,12 +182,15 @@ const Exercicio1 = () => {
                                         })}
                                     </ScrollView>
                                     <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                                        <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>Voltar</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                         </Modal>
 
+                    <View style={{flex: 1}}>
+
+                        {/* imagem da raposa quando concluir as perguntas  */}                
                         {showCheckmark && (
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: "50%" }}>
                                 <Image source={require('../assets/raposacheckmark.png')} />
@@ -192,8 +198,10 @@ const Exercicio1 = () => {
                         )}
 
                         {!allQuestionsAnswered && (
+                            // container das questoes, container pai
                             <View style={styles.containerQuestoes}>
-                                <ScrollView Style={{flex:1}}>
+                            <ScrollView Style={{flex:1}}>
+
                                 {/* Quizzes */}
                                 {modulo && Object.keys(modulo).map((key, index) => {
                                     if (key.startsWith('pergunta')) {
@@ -204,6 +212,7 @@ const Exercicio1 = () => {
                                             return null; // Não exibe a pergunta
                                             }
                                             return (
+                                                // container dos exerciocios 
                                                 <View key={index} style={styles.questoesExercicios}>
                                                 {/* Adicione a condição allQuestionsAnswered aqui */}
                                                 {!allQuestionsAnswered && (
@@ -212,35 +221,39 @@ const Exercicio1 = () => {
                                                 {/* Adicione a condição allQuestionsAnswered aqui */}
                                                 {!allQuestionsAnswered && (
                                                     <Modal isVisible={currentModal === questionIndex + 2}>
-                                                        <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', borderColor: 'white', borderRadius: 15 }}>
+                                                        <View style={styles.modalQuestoes}>
                                                             <TituloAula nomeAula={question.enunciadoQuestao} />
-                                                            <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 100 }} />
+                                                            <Image source={require('../assets/foxCA7745.png')} style={{ resizeMode: 'contain', height: 120, marginTop: -10  }} />
                                                         <ScrollView contentContainerStyle={{ flexGrow: 1}}>
                                                         <View style= {styles.containerPerguntaResposta}>
                                                             <View style={styles.definicoes}>
-                                                                <Text style={{ fontSize: 18 }}>{`A: ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
-                                                                <Text style={{ fontSize: 18 }}>{`B: ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
-                                                                <Text style={{ fontSize: 18 }}>{`C: ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
-                                                                <Text style={{ fontSize: 18 }}>{`D: ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
+                                                                <Text style={{ fontSize: 16 }}>{`A) ${shuffledOptions ? shuffledOptions[0] : ''}`}</Text>
+                                                                <Text style={{ fontSize: 16 }}>{`B) ${shuffledOptions ? shuffledOptions[1] : ''}`}</Text>
+                                                                <Text style={{ fontSize: 16 }}>{`C) ${shuffledOptions ? shuffledOptions[2] : ''}`}</Text>
+                                                                <Text style={{ fontSize: 16 }}>{`D) ${shuffledOptions ? shuffledOptions[3] : ''}`}</Text>
                                                             </View>
-                                                            <View>
-                                                                <Text style={{fontSize: 18, fontWeight: 'bold'}}>
-                                                                    Escolha a opção correta:
-                                                                </Text>
+
+                                                            <View style={styles.modalResposta}>
+                                                                    <Text style={{fontSize: 18, fontWeight: '600'}}>
+                                                                        Escolha a opção correta:
+                                                                    </Text>
+                                                                
+                                                                <Picker
+                                                                    selectedValue={selectedOption}
+                                                                    onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
+                                                                    <Picker.Item label="Opção A" value={shuffledOptions ? shuffledOptions[0] : ''} />
+                                                                    <Picker.Item label="Opção B" value={shuffledOptions ? shuffledOptions[1] : ''} />
+                                                                    <Picker.Item label="Opção C" value={shuffledOptions ? shuffledOptions[2] : ''} />
+                                                                    <Picker.Item label="Opção D" value={shuffledOptions ? shuffledOptions[3] : ''} />
+                                                                </Picker>
+
                                                             </View>
-                                                            <Picker
-                                                                selectedValue={selectedOption}
-                                                                onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)} style={styles.pickerStyles}>
-                                                                <Picker.Item label="Opção A" value={shuffledOptions ? shuffledOptions[0] : ''} />
-                                                                <Picker.Item label="Opção B" value={shuffledOptions ? shuffledOptions[1] : ''} />
-                                                                <Picker.Item label="Opção C" value={shuffledOptions ? shuffledOptions[2] : ''} />
-                                                                <Picker.Item label="Opção D" value={shuffledOptions ? shuffledOptions[3] : ''} />
-                                                            </Picker>
+
                                                             <TouchableOpacity style={styles.submitButton} onPress={() => handleSubmit(questionIndex)}>
-                                                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Submeter</Text>
+                                                                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>Responder</Text>
                                                             </TouchableOpacity>
                                                             <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-                                                                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Voltar</Text>
+                                                                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>Voltar</Text>
                                                             </TouchableOpacity>
                                                             </View>
                                                         </ScrollView>
@@ -252,13 +265,11 @@ const Exercicio1 = () => {
                                     }
                                     return null;
                                 })}
-                                         </ScrollView>
-
+                            </ScrollView>
                             </View>
                         )}
                     </View>
                 </ImageBackground>
-            </ScrollView>
         </SafeAreaView>
     );
 };
@@ -273,7 +284,7 @@ const styles = StyleSheet.create({
     paragraph: {
         textAlign: 'justify',
         marginBottom: 10,
-        fontSize: 15,
+        fontSize: 16,
         color: '#fff'
     },
     closeButton: {
@@ -282,9 +293,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 50,
         width: 160,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: 'white',
-        borderRadius: 10,
+        borderRadius: 16,
         backgroundColor: '#CA7745',
         marginTop: 12
     },
@@ -292,31 +303,35 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
+        flexDirection: 'column',
         height: 50,
         width: 160,
         borderWidth: 2,
         borderColor: 'white',
-        borderRadius: 10,
+        borderRadius: 16,
         backgroundColor: '#021E1F',
-        marginTop: 120,
+        marginTop: 40,
         marginBottom: 6
     },
     pickerStyles: {
         height: 50,
         width: 200,
-        marginTop: 20,
-        marginBottom: 20,
+        // marginTop: -40,
+        marginBottom: 26,
+        paddingVertical: 6
     },
     definicoes: {
-        gap: 16,
-        marginTop: 35,
-        paddingBottom: 50,
-        borderColor: 'white',
-        borderRadius: 16,
-        paddingHorizontal:16,
-        flexDirection:'column',
-        flex: 0.9
+        gap: 18,
+        marginTop: 25,
+        paddingBottom: 2,
+        textAlign:'justify',
+    },
+    modalContainer:{
+        justifyContent: 'center',
+        alignItems:'center',
+        paddingBottom: 15,
+        marginBottom: 5,
+        marginTop: 1
     },
     containerPerguntaResposta:{
         alignItems: 'center',
@@ -342,6 +357,15 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         marginBottom: 15, 
         marginHorizontal: 10,
+    }, 
+    modalQuestoes:{
+        alignItems: 'center',
+        backgroundColor: 'white', 
+        borderColor: 'white', 
+        borderRadius: 16,
+        paddingHorizontal:16,
+        flexDirection:'column',
+        flex: 0.9
     }
 });
 

@@ -19,13 +19,15 @@ const styles = StyleSheet.create({
         height: 90,
         width: '90%',
         justifyContent: "center",
+        alignItems: "center",
         borderRadius: 15,
     },
     textoIndicador: {
         color: "#000000",
-        fontSize:  24,
-        fontWeight: "500",
-        textAlign: "center"
+        fontSize:  21,
+        fontWeight: "400",
+        textAlign: "center",
+        padding: 2,
     }
 
 })

@@ -121,8 +121,8 @@ const Certificados = () => {
             <IndicadorTela nomeTela="Certificado" />
 
             <ModulosCertificados tituloQuiz="Certificado - Cyber Fox">
-            <TextInput placeholder="Nome para o certificado" value={name} onChangeText={(value) => setName(value)} style={styles.input}/>
-            <BotaoCertificado onPress={generatePdf} title="Gerar Certificado"/>
+              <TextInput placeholder="Nome para o certificado" value={name} onChangeText={(value) => setName(value)} style={styles.input} placeholderTextColor="#E0E0E0"/>
+              <BotaoCertificado onPress={generatePdf} title="Gerar Certificado"/>
             </ModulosCertificados>
 
           </ImageBackground>
@@ -147,8 +147,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: '#CA7745',
-    borderRadius: 15,
-    marginBottom: 15
+    borderRadius: 16,
+    marginBottom: 15,
+    marginTop: 14
   }
 });
 

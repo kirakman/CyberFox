@@ -19,10 +19,9 @@ const styles = StyleSheet.create({
     textoIndicador: {
         color: "#CA7745",
         fontSize:  24,
-        fontWeight: "500",
+        fontWeight: "600",
         textAlign: "center"
     }
-
 })
 
 export default TituloAula;
