@@ -310,13 +310,13 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 16,
         backgroundColor: '#021E1F',
-        marginTop: 120,
+        marginTop: 40,
         marginBottom: 6
     },
     pickerStyles: {
         height: 50,
         width: 200,
-        marginTop: -40,
+        // marginTop: -40,
         marginBottom: 26,
         paddingVertical: 6
     },
